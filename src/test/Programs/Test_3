@@ -1,0 +1,41 @@
+routine Main () is
+    var kek : integer
+    var mem : integer is 9
+
+    kek = 1 + 1
+    kek = 2 * 2;
+    kek = 6 / 2
+    kek = 9 - 4
+
+    kek = 1 + mem
+    kek = mem - 5;kek = kek * 2
+    kek = kek / mem;
+
+
+    var loh : real;
+    var krut : real is 6.66
+
+    loh = 2.0 + 1.75
+    loh = 3.0 - 0.99
+    loh = 5.55 * 7.77
+    loh = 9.9 / 0.001
+    loh = 8.54
+
+    loh = 8.4 + krut
+    loh = loh - krut
+    loh = krut * krut
+    loh = 9.2
+    krut = krut / loh
+
+    var tmp : boolean;
+    var prm : boolean is false;
+
+    tmp = false and true
+    tmp = true xor true
+    tmp = false or true
+
+    tmp = false and prm
+    tmp = prm or false
+    tmp = prm xor tmp
+
+end
