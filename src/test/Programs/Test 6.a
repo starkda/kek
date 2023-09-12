@@ -1,0 +1,22 @@
+routine Main() is
+    var i : integer is 0
+
+    var x : integer is 1000
+
+    var y : integer is 0
+
+
+    while x > 0 loop
+        i = i + 1
+        x = x -1
+    end
+
+
+    while x < 1000 loop
+        while x < 500 loop
+            y = y + 1
+        end
+        i = i -1
+        x = x + 1
+    end
+end

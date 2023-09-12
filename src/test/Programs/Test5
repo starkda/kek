@@ -1,0 +1,36 @@
+routine Main() is
+    var kek : boolean is true
+    var mem : boolean is false
+
+    var check : integer
+
+    if kek and mem
+        then check = 404
+    end
+
+    if kek or mem
+        then check = 200
+        else check = 500
+    end
+
+    if kek
+        then
+            if mem
+                    then check = 301
+                    else check = 200
+            end
+        else
+            if kek xor mem
+                then check = 400
+                else check = 402
+            end
+    end
+
+    if kek
+        then
+            if mem
+                    then check = 321
+                    else check = 322
+            end
+    end
+end
