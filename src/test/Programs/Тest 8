@@ -1,0 +1,13 @@
+routine Main() is
+    var kek : boolean is true
+    var mem : boolean is false
+    var check : integer
+
+
+    check = 1 + 2 / 0 + 1
+    if 1 + 1 - 2 / 0 + 1 - 2 + 3 > 3 - 2 / 0 + 1
+        then check = 1 / 0 + 1
+        else check = 1 / 0 + 1 * 0
+    end
+
+end

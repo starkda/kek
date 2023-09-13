@@ -1,4 +1,5 @@
-routine Main () is
-     var bl : boolean is true
-     bl = 4
+routine Main() is
+    var b : integer is 2
+    var a : boolean is b
+
 end

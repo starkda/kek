@@ -1,0 +1,4 @@
+routine Main() is
+    var a : boolean is var b : integer is 1
+
+end
