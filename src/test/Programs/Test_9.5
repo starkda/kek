@@ -1,0 +1,16 @@
+routine test(nonref : integer, ref : record var f : integer end) is
+    nonref = 2
+    record.f = 2
+end
+
+routine Main () is
+    var res : boolean is false
+    var lol : integer is 3
+    var gg : record var f : integer is 3 end
+    test(lol, gg)
+
+
+    if lol = 2 and gg.f = 3 then
+        res = true
+    end
+end

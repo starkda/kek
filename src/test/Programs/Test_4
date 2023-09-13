@@ -18,12 +18,12 @@ routine Main () is
         var dec : integer is 69 * calc_int(69)
         var real : real is 420 * calc_real(420)
         var bool : boolean is false and xor_bool(true, false)
-
+        end
    recordType.dec = recordType.dec + 1.75;
    recordType.real = recordType.real * 9
    recordType.bool = recordType.boolean + 8
 
-   var arrayType : array[calc_int(44)] arr real
+   var arrayType : array[calc_int(44)] real
    var kek : integer is array.size
    array[calc_int(9)] = 5.5
    array[calc_int(10)] = 4.96 + array[calc_int(9)]

@@ -1,0 +1,4 @@
+routine Main () is
+     var bl : boolean is true
+     bl = 4
+end

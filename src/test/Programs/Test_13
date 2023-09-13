@@ -1,0 +1,4 @@
+routine Main() is
+    var gg : record var f : integer is 3 end
+    f.rrr
+end

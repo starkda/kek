@@ -1,0 +1,9 @@
+routine kek() is
+    return 0.1
+end
+
+routine Main () is
+     while var ty : is integer loop
+        var ttt : is real
+     end
+end

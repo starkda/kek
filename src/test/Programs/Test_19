@@ -1,0 +1,5 @@
+routine Main () is
+    if 2 then
+     5 * 3
+    end
+end

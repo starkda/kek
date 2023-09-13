@@ -1,0 +1,5 @@
+routine Main () is
+     var bl : boolean is true
+     var kek : boolean is true
+     bl * kek
+end

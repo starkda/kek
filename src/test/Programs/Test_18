@@ -1,0 +1,6 @@
+routine kek (param : array[] boolean) is
+     var kek : boolean is var bl : boolean is true
+end
+routine Main () is
+     var kek : boolean is true
+end

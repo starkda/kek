@@ -1,0 +1,3 @@
+routine Main () is
+     var 78 * 78 : boolean is var bl : boolean is true
+end

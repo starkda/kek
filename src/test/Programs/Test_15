@@ -1,0 +1,5 @@
+routine kek () is
+end
+routine Main () is
+    kek()
+end

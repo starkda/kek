@@ -1,0 +1,4 @@
+routine Main () is
+     var kek : array[15] real
+     kek[16]
+end

@@ -1,0 +1,32 @@
+routine Main () is
+     var res : boolean is true
+
+
+     var dec : integer is 2
+     var rl : real is 9.75
+     var bl : boolean is true
+
+     dec = 3
+     if dec /= 3 then res = false end
+     dec = rl
+     if dec /= 10 then res = false end
+     dec = 9.25
+     if dec /= 9 then res = false end
+     dec = bl
+     if dec /= 1 then res = false end
+     dec = false
+     if dec /= 0 then res = false end
+
+     rl = 2
+     if rl /= 2.0 then res = false end
+     rl = true
+     if rl /= 1.0 then res = false end
+     rl = false
+     if rl /= 0.0 then res = false end
+
+     bl = 0
+     if bl /= false then res = false end
+     bl = 1
+     if bl /= true then res = false end
+
+end
