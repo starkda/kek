@@ -15,8 +15,7 @@ public class Processor {
 
     public void process() {
         List<Token> tokens = getTokensFromLexicalAnalyzer();
-        for (Token token: tokens
-             ) {
+        for (Token token : tokens) {
             token.print();
         }
     }
