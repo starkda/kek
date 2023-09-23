@@ -1,0 +1,74 @@
+routine a()
+    var a : integer is 1
+end
+
+routine  b() : void
+    var a : integer is 1
+end
+
+
+routine c()
+    var a : integer is 1
+    a
+end
+
+routine  d() : integer
+    var a : integer is 1
+    a
+end
+
+routine  dd() : integer
+    var a : integer is 3
+    a
+end
+
+routine  ddd() : integer
+    var a : integer is 4
+    a
+end
+
+routine e()
+    var a : real is 4.0
+    a
+end
+
+routine  f() : real
+    var a : real is 4.0
+    a
+end
+
+routine g()
+    var a : boolean is false
+    a
+end
+
+routine  h() : boolean
+    var a : boolean is true
+    a
+end
+
+routine i()
+    var arrayType : array[5] integer
+    a
+end
+
+routine  k() : arrayType
+    var arrayType : array[5] integer
+    a
+end
+
+
+
+
+routine Main() is
+    var q : integer
+    var w : real
+    var z : bool
+    var s : array [] integer is k
+
+    q = d() + dd() + ddd()
+    a()
+    b()
+    w = e + f
+    z = g + h
+end
