@@ -11,6 +11,8 @@ import java.util.regex.PatternSyntaxException;
 
 public class LexicalAnalyzer {
     private final Set<String> specials = Set.of("#", "@", "\\$");
+
+    private final Set<String> operatorsForSplit = Set.of("<=", ">=", "/=");
     private final Set<String> operators = Set.of("<=", ">=", "/=", ":", "\\[", "]", "\\{", "}", "\\(", "\\)", ";", "\\.", ",", "\"", "'", "=", "-", "\\+",
             "\\*", "%", "/", "<", ">");
     private final Set<String> operatorsForCompare = Set.of("<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
@@ -51,6 +53,8 @@ public class LexicalAnalyzer {
     private String preprocessingSourceCode(String sourceCode) {
         try {
             sourceCode = sourceCode.replaceAll("\n", " ");
+            for (String op : operatorsForSplit)
+                sourceCode = sourceCode.replaceAll(op, " " + op + " ");
             for (String op : operators)
                 sourceCode = sourceCode.replaceAll(op, " " + op + " ");
 
