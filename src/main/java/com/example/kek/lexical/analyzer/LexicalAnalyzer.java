@@ -5,15 +5,16 @@ import com.example.kek.lexical.analyzer.token.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 
 public class LexicalAnalyzer {
     private final Set<String> specials = Set.of("#", "@", "\\$");
 
     private final Map<String, String> operatorsForSplit = Map.of("<=", " __lessOrEqual__ ", ">=", " __moreOrEqual__ ", "/=", " __notEqual__ ");
-    private final Set<String> operators = Set.of("<=", ">=", "/=", ":", "\\[", "]", "\\{", "}", "\\(", "\\)", ";", "\\.", ",", "\"", "'", "=", "-", "\\+",
+    private final Set<String> operators = Set.of("<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "=", "-", "+",
             "\\*", "%", "/", "<", ">");
-    private final Set<String> operatorsForCompare = Set.of("<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
+    private final Set<String> operatorsForCompare = Set.of(":=", "<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
             "*", "%", "/", "<", ">");
     private final Set<String> keyWords = Set.of(
             "while", "loop", "reverse", "for", "in",
@@ -24,13 +25,40 @@ public class LexicalAnalyzer {
             "if", "then", "else");
 
 
-    public List<String> tokenization(String preparedSourceCode) {
-        List<String> ans = new ArrayList<>();
-        String[] preOut = preparedSourceCode.split(" ");
-        for (String candidate : preOut)
-            if (!candidate.equals(""))
-                ans.add(candidate);
-        return ans;
+    public List<Token> parseTokens(String sourceCode) {
+        List<Token> tokens = new ArrayList<>();
+        List<String> lines = List.of(sourceCode.split("\n"));
+        int curLine = 0;
+        int curPosition;
+        for (String line: lines){
+            curLine++;
+            curPosition = 0;
+            for (int i = 0; i < line.length(); i++){
+                curPosition++;
+                if (line.charAt(i) == ' ') continue;
+                int l = i, r = i;
+                while(r + 1 != line.length() && line.charAt(r + 1) != ' '){
+                    r++;
+                }
+
+                while(r >= l){
+                    if (line.substring(l, r + 1).matches("[0-9]+(\\.[0-9]+)?")) break;
+                    if (line.substring(l, r + 1).matches("[A-Za-z]+[A-Za-z0-9]*")) break;
+                    if (operators.contains(line.substring(l, r + 1))) break;
+                    r--;
+                }
+
+                if (r < l){
+                    System.err.printf("Illegal symbol at line %d position %d", curLine, curPosition);
+                    System.exit(1);
+                }
+                tokens.add(new Token(line.substring(l, r + 1), curLine, curPosition));
+                curPosition += (r - l);
+                i = r;
+            }
+        }
+
+        return tokens;
     }
 
     private String readCodeFromFile(String fileName) {
@@ -47,39 +75,22 @@ public class LexicalAnalyzer {
         return allCode.toString();
     }
 
-    private String preprocessingSourceCode(String sourceCode) {
-        try {
-            sourceCode = sourceCode.replaceAll("\n", " ");
-            //"<=", ">=", "/="
-            for (Map.Entry<String, String> entry : operatorsForSplit.entrySet()) {
-                sourceCode = sourceCode.replaceAll(entry.getKey(), entry.getValue());
-            }
-            for (String op : operators)
-                sourceCode = sourceCode.replaceAll(op, " " + op + " ");
-
-            for (String op : specials)
-                sourceCode = sourceCode.replaceAll(op, " " + op + " ");
-
-            for (Map.Entry<String, String> entry : operatorsForSplit.entrySet()) {
-                sourceCode = sourceCode.replaceAll(entry.getValue(), entry.getKey());
-            }
-            return sourceCode;
-        } catch (PatternSyntaxException e) {
-            System.err.println("preprocessingSourceCode\n\n" + e);
-            return "";
-        }
+    public List<Token> getTokensFromLexicalAnalyzer(String fileName){
+        String sourceCode = readCodeFromFile(fileName);
+        List<Token> rawTokens = parseTokens(sourceCode);
+        return rawTokens.stream().map(this::categorizeToken).toList();
     }
 
-    private Token categorizeToken(String token) {
-        if (operatorsForCompare.contains(token))
-            return new Operator(token);
-        else if (specials.contains(token))
-            return new SpecialSymbol(token);
-        else if (keyWords.contains(token))
-            return new KeyWord(token);
-        else if (isNumeric(token))
-            return new Literal(token);
-        return new Identifier(token);
+    private Token categorizeToken(Token token) {
+        if (operatorsForCompare.contains(token.getCode()))
+            return new Operator(token.getCode(), token.getLine(), token.getPosition());
+        else if (specials.contains(token.getCode()))
+            return new SpecialSymbol(token.getCode(), token.getLine(), token.getPosition());
+        else if (keyWords.contains(token.getCode()))
+            return new KeyWord(token.getCode(), token.getLine(), token.getPosition());
+        else if (isNumeric(token.getCode()))
+            return new Literal(token.getCode(), token.getLine(), token.getPosition());
+        return new Identifier(token.getCode(), token.getLine(), token.getPosition());
 
     }
 
@@ -93,17 +104,4 @@ public class LexicalAnalyzer {
     }
 
 
-    public List<String> generateTokens(String fileName) {
-        String sourceCode = readCodeFromFile(fileName);
-        String readySourceCode = preprocessingSourceCode(sourceCode);
-        return new ArrayList<>(tokenization(readySourceCode));
-    }
-
-    public List<Token> categorizeTokens(List<String> tokens) {
-        List<Token> allCategorizeTokens = new ArrayList<>();
-        for (String token : tokens) {
-            allCategorizeTokens.add(categorizeToken(token));
-        }
-        return allCategorizeTokens;
-    }
 }
