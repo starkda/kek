@@ -1,75 +1,58 @@
-routine a()
-    var a : integer is 1
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean is true
+    end
+
+routine recursiveFunction(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
 end
 
-routine  b() : void
-    var a : integer is 1
+routine arrayFunction(var ar : array[] integer) : array[] integer is
+    if ar.size > 2
+        then
+            var arNew : array[ar.size - 1] integer
+            return arrayFunction(arNew)
+        else return ar
+    end
 end
 
-
-routine c()
-    var a : integer is 1
-    a
+routine fillingArray(var ar : array[] integer) : array[] integer is
+    var arraySize is ar.size
+    var i : integer
+    for i in 1 .. arraySize loop
+        ar[i] := i
+    end
+    return ar
 end
 
-routine  d() : integer
-    var a : integer is 1
-    a
+routine createLinkedList() : testStruct is
+    var first : testStruct is testStruct(
+                            a := 1.1
+                            vertical := 12
+                            horizontal := 15
+                            )
+    var second : testStruct istestStruct(
+                             a := 1.1
+                             next := first
+                             vertical := 12
+                             horizontal := 15
+                             )
+    return second
 end
-
-routine  dd() : integer
-    var a : integer is 3
-    a
-end
-
-routine  ddd() : integer
-    var a : integer is 4
-    a
-end
-
-routine e()
-    var a : real is 4.0
-    a
-end
-
-routine  f() : real
-    var a : real is 4.0
-    a
-end
-
-routine g()
-    var a : boolean is false
-    a
-end
-
-routine  h() : boolean
-    var a : boolean is true
-    a
-end
-
-routine i()
-    var arrayType : array[5] integer
-    a
-end
-
-routine  k() : arrayType
-    var arrayType : array[5] integer
-    a
-end
-
-
-
 
 routine Main() is
-    var q : integer
-    var w : real
-    var z : bool
-    var s : array [] integer is k
-    var t : bool is 2 >= 7
+    var arr : array[100] integer
+    arr := fillingArray(arr)
+    arr := arrayFunction(arr)
 
-    q = d() + dd() + ddd()
-    a()
-    b()
-    w = e + f
-    z = g + h
+    var it is 100
+    var arithmeticSum = recursiveFunction(it)
+    var linkedList : testStruct is createLinkedList
 end

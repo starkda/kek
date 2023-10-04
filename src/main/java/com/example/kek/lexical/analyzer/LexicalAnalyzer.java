@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 public class LexicalAnalyzer {
     private final Set<String> specials = Set.of("#", "@", "\\$");
 
-    private final Map<String, String> operatorsForSplit = Map.of("<=", " __lessOrEqual__ ", ">=", " __moreOrEqual__ ", "/=", " __notEqual__ ");
-    private final Set<String> operators = Set.of("<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "=", "-", "+",
+    private final Set<String> operators = Set.of("<=", ">=", "/=", ":=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "=", "-", "+",
             "\\*", "%", "/", "<", ">");
     private final Set<String> operatorsForCompare = Set.of(":=", "<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
             "*", "%", "/", "<", ">");
@@ -22,7 +21,7 @@ public class LexicalAnalyzer {
             "var", "routine", "end",
             "integer", "real", "boolean",
             "record", "array", "is",
-            "if", "then", "else");
+            "if", "then", "else", "type");
 
 
     public List<Token> parseTokens(String sourceCode) {
