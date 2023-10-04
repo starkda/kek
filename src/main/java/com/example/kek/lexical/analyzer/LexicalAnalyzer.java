@@ -4,8 +4,7 @@ import com.example.kek.lexical.analyzer.token.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.PatternSyntaxException;
-import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 
 public class LexicalAnalyzer {
@@ -89,14 +88,16 @@ public class LexicalAnalyzer {
             return new KeyWord(token.getCode(), token.getLine(), token.getPosition());
         else if (isNumeric(token.getCode()))
             return new Literal(token.getCode(), token.getLine(), token.getPosition());
+        else
         return new Identifier(token.getCode(), token.getLine(), token.getPosition());
 
     }
 
     private boolean isNumeric(String str) {
         try {
-            Integer.parseInt(str);
-            return true;
+            String regex = "^[-+]?\\d+(\\.\\d+)?$";
+            Pattern pattern = Pattern.compile(regex);
+            return pattern.matcher(str).matches();
         } catch (NumberFormatException e) {
             return false;
         }
