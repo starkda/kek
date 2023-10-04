@@ -38,7 +38,7 @@ routine createLinkedList() : testStruct is
                             vertical := 12
                             horizontal := 15
                             )
-    var second : testStruct istestStruct(
+    var second : testStruct is testStruct(
                              a := 1.1
                              next := first
                              vertical := 12
