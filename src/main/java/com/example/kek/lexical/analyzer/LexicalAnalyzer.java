@@ -16,7 +16,7 @@ public class LexicalAnalyzer {
             "*", "%", "/", "<", ">");
     private final Set<String> keyWords = Set.of(
             "while", "loop", "reverse", "for", "in",
-            "and", "or", "xor", "not", "true", "false",
+            "and", "or", "xor", "not",
             "var", "routine", "end",
             "integer", "real", "boolean",
             "record", "array", "is",
