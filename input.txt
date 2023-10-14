@@ -1,0 +1,58 @@
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean is true
+    end
+
+routine recursiveFunction(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+end
+
+routine arrayFunction(var ar : array[] integer) : array[] integer is
+    if ar.size > 2
+        then
+            var arNew : array[ar.size - 1] integer
+            return arrayFunction(arNew)
+        else return ar
+    end
+end
+
+routine fillingArray(var ar : array[] integer) : array[] integer is
+    var arraySize is ar.size
+    var i : integer
+    for i in 1 .. arraySize loop
+        ar[i] := i
+    end
+    return ar
+end
+
+routine createLinkedList() : testStruct is
+    var first : testStruct is testStruct(
+                            a := 1.1
+                            vertical := 12
+                            horizontal := 15
+                            )
+    var second : testStruct is testStruct(
+                             a := 1.1
+                             next := first
+                             vertical := 12
+                             horizontal := 15
+                             )
+    return second
+end
+
+routine Main() is
+    var arr : array[100] integer
+    arr := fillingArray(arr)
+    arr := arrayFunction(arr)
+
+    var it is 100
+    var arithmeticSum = recursiveFunction(it)
+    var linkedList : testStruct is createLinkedList
+end
