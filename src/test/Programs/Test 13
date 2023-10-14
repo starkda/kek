@@ -1,0 +1,3 @@
+routine Main() is
+    var a : boolean is c
+end

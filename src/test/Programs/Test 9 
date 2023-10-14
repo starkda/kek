@@ -1,0 +1,18 @@
+routine Main() is
+    type kek is real
+    type mem is kek
+    var a : mem is 4.0
+
+
+    type BigArray is array[1000] real
+    var b : BigArray
+
+    type SomeRecordStructire is
+        record
+                var dec : integer is 69 * calc_int(69)
+                var real : real is 420 * calc_real(420)
+                var bool : boolean is false and xor_bool(true, false)
+                end
+    var c : SomeRecordStructire
+
+end
