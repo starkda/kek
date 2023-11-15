@@ -11,7 +11,7 @@ public class LexicalAnalyzer {
     private final Set<String> specials = Set.of("#", "@", "\\$");
 
     private final Set<String> operators = Set.of("<=", ">=", "/=", ":=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "=", "-", "+",
-            "\\*", "%", "/", "<", ">");
+            "\\*", "%", "/", "<", ">", "..");
     private final Set<String> operatorsForCompare = Set.of(":=", "<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
             "*", "%", "/", "<", ">");
     private final Set<String> keyWords = Set.of(

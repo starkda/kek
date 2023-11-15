@@ -2,9 +2,19 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="yandex_vertis_snapshots" />
+      <option name="name" value="Vertis Snapshots" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/yandex_vertis_snapshots" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/central" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -15,6 +25,26 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yandex_qa_snapshots" />
+      <option name="name" value="QA Snapshots" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/yandex_qa_snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yandex_vertis_releases" />
+      <option name="name" value="Vertis Releases" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/yandex_vertis_releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yandex_vertis" />
+      <option name="name" value="Vertis" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/yandex_vertis" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yandex_qa_releases" />
+      <option name="name" value="QA Releases" />
+      <option name="url" value="https://bucket.yandex-team.ru/v1/maven/yandex_qa_releases" />
     </remote-repository>
   </component>
 </project>
