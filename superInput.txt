@@ -56,12 +56,3 @@ routine Main() is
     var arithmeticSum is recursiveFunction(it)
     var linkedList : testStruct is createLinkedList
 end
-
-
-
-var a : testStruct is testStruct(
-                                     1.1 + 1.15,
-                                     first,
-                                     13 + 14,
-                                     15 + 123
-                                     )

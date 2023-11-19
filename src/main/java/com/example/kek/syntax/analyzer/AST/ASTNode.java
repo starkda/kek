@@ -5,19 +5,19 @@ import com.example.kek.lexical.analyzer.token.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASTNode {
+public abstract class ASTNode {
 
-    private String type;
-    private int start, end;
-    private Token token;
+    protected final List<Token> categorizedTokens;
+    protected List<Token> code;
 
-    private ASTNode parent;
-    private List<ASTNode> children = new ArrayList<>();
+    protected Token lastToken;
+    protected Token currentToken;
 
-
-    public ASTNode(Token token) {
-        this.token = token;
+    public ASTNode(Token currentToken, List<Token> categorizedTokens) {
+        this.currentToken = currentToken;
+        this.categorizedTokens = categorizedTokens;
     }
 
+    abstract void createNode() throws Exception;
 
 }

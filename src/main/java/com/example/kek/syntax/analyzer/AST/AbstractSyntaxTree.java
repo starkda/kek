@@ -5,12 +5,17 @@ import com.example.kek.lexical.analyzer.token.Token;
 import java.util.List;
 
 public class AbstractSyntaxTree {
-    private ASTNode startedNode, currentNode;
-    private List<Token > categorizedTokens;
+    private Program program;
+    private final String entryPoint;
+    private final List<Token> categorizedTokens;
 
-    public AbstractSyntaxTree(List<Token> tokens){
-        categorizedTokens = tokens;
+    public AbstractSyntaxTree(List<Token> categorizedTokens, String entryPoint) throws Exception {
+        this.categorizedTokens = categorizedTokens;
+        this.entryPoint = entryPoint;
+        generateAbstractSyntaxTree();
     }
 
-    public void generateAbstractSyntaxTree(){}
+    private void generateAbstractSyntaxTree() throws Exception {
+        this.program = new Program(categorizedTokens.get(0), categorizedTokens);
+    }
 }

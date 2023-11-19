@@ -11,7 +11,7 @@ public class LexicalAnalyzer {
     private final Set<String> specials = Set.of("#", "@", "\\$");
 
     private final Set<String> operators = Set.of("<=", ">=", "/=", ":=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "=", "-", "+",
-            "\\*", "%", "/", "<", ">");
+            "\\*", "%", "/", "<", ">", "..");
     private final Set<String> operatorsForCompare = Set.of(":=", "<=", ">=", "/=", ":", "[", "]", "{", "}", "(", ")", ";", ".", ",", "", "'", "=", "-", "+",
             "*", "%", "/", "<", ">");
     private final Set<String> keyWords = Set.of(
@@ -73,7 +73,7 @@ public class LexicalAnalyzer {
         return allCode.toString();
     }
 
-    public List<Token> getTokensFromLexicalAnalyzer(String fileName){
+    public List<Token> genTokensFromLexicalAnalyzer(String fileName){
         String sourceCode = readCodeFromFile(fileName);
         List<Token> rawTokens = parseTokens(sourceCode);
         return rawTokens.stream().map(this::categorizeToken).toList();
