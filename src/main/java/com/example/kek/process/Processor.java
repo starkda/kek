@@ -18,10 +18,12 @@ public class Processor {
     }
 
     public void process() throws Exception {
-        List<Token> categorizeTokens = lexicalAnalyzer.getTokensFromLexicalAnalyzer(fileName);
+        List<Token> categorizeTokens = lexicalAnalyzer.genTokensFromLexicalAnalyzer(fileName);
       //  categorizeTokens.forEach(Token::print); // print all tokens after lexical analyze
 
         SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(new AbstractSyntaxTree(categorizeTokens, entryPoint));
+        syntaxAnalyzer.makeSemanticAnalysis();
+
         syntaxAnalyzer.showAbstractSyntaxTree();
     }
 

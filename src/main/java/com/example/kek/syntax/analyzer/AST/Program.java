@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Program extends ASTNode {
-    private List<TypeDeclaration> typeDeclarations = new ArrayList<>();
-    private List<VariableDeclaration> variableDeclarations = new ArrayList<>();
-    private List<RoutineDeclaration> routineDeclaration = new ArrayList<>();
+    private List<ASTNode> allMain = new ArrayList<>();
     public Program(Token token, List<Token> categorizedTokens) throws Exception {
         super(token, categorizedTokens);
         createNode();
@@ -27,19 +25,19 @@ public class Program extends ASTNode {
             }
 
             if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "var")) {
-                this.variableDeclarations.add(new VariableDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
+                this.allMain.add(new VariableDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
                 // последний токен -> позиция последнего токена + 1
-                currentPosition = this.variableDeclarations.get(this.variableDeclarations.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                currentPosition = this.allMain.get(this.allMain.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 continue;
             }
             if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "type")) {
-                this.typeDeclarations.add(new TypeDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
-                currentPosition = this.typeDeclarations.get(this.typeDeclarations.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                this.allMain.add(new TypeDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
+                currentPosition = this.allMain.get(this.allMain.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 continue;
             }
             if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "routine")) {
-                this.routineDeclaration.add(new RoutineDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
-                currentPosition = this.routineDeclaration.get(this.routineDeclaration.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                this.allMain.add(new RoutineDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
+                currentPosition = this.allMain.get(this.allMain.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 continue;
             }
 

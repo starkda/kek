@@ -13,9 +13,11 @@ public class Type {
 
     protected  int line;
     protected int position;
-    protected PrimitiveType primitiveType;
-    protected UserType userType;
-    protected ArrayType arrayType;
+//    protected PrimitiveType primitiveType;
+//    protected UserType userType;
+//    protected ArrayType arrayType;
+
+    protected Type type;
 
     /**
      * Есть 4 возможых варианта типа:
@@ -32,16 +34,16 @@ public class Type {
         int currentPosition = token.getOrderInTokenList(categorizedTokens);
 
         if(Objects.equals(token.getCode(), "real") || Objects.equals(token.getCode(), "boolean") || Objects.equals(token.getCode(), "integer")) {
-            this.primitiveType = new PrimitiveType(token, token.getCode());
-            this.lastToken = primitiveType.lastToken;
+            this.type = new PrimitiveType(token, token.getCode());
+            this.lastToken = type.lastToken;
         }
         if(token.getClass().equals(com.example.kek.lexical.analyzer.token.Identifier.class) || Objects.equals(token.getCode(), "record")) {
-            this.userType = new UserType(token, categorizedTokens);
-            this.lastToken = userType.lastToken;
+            this.type = new UserType(token, categorizedTokens);
+            this.lastToken = type.lastToken;
         }
         if(Objects.equals(token.getCode(), "array")) {
-            this.arrayType = new ArrayType(token, token.getCode(), categorizedTokens);
-            this.lastToken = arrayType.lastToken;
+            this.type = new ArrayType(token, token.getCode(), categorizedTokens);
+            this.lastToken = type.lastToken;
         }
 
     }

@@ -9,9 +9,8 @@ import java.util.Objects;
 public class Body extends  ASTNode{
 
 
-    private List<TypeDeclaration> typeDeclarations = new ArrayList<>();
-    private List<VariableDeclaration> variableDeclarations = new ArrayList<>();
-    private List<Statement> statements = new ArrayList<>();
+    // typeDeclarations + variableDeclarations + statements
+    private final List<ASTNode> declarationsAndStatements = new ArrayList<>();
     public Body(Token currentToken, List<Token> categorizedTokens) throws Exception {
         super(currentToken, categorizedTokens);
         createNode();
@@ -27,20 +26,20 @@ public class Body extends  ASTNode{
                 break;
             }
             if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "var")) {
-                this.variableDeclarations.add(new VariableDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
+                this.declarationsAndStatements.add(new VariableDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
                 // последний токен -> позиция последнего токена + 1
-                currentPosition = this.variableDeclarations.get(this.variableDeclarations.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                currentPosition = this.declarationsAndStatements.get(this.declarationsAndStatements.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 continue;
             }
 
 
             if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "type")) {
-                this.typeDeclarations.add(new TypeDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
-                currentPosition = this.typeDeclarations.get(this.typeDeclarations.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                this.declarationsAndStatements.add(new TypeDeclaration(this.categorizedTokens.get(currentPosition), categorizedTokens));
+                currentPosition = this.declarationsAndStatements.get(this.declarationsAndStatements.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 continue;
             }
-            this.statements.add(new Statement(this.categorizedTokens.get(currentPosition), categorizedTokens));
-            currentPosition = this.statements.get(this.statements.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
+            this.declarationsAndStatements.add(new Statement(this.categorizedTokens.get(currentPosition), categorizedTokens));
+            currentPosition = this.declarationsAndStatements.get(this.declarationsAndStatements.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
         }
     }
 }

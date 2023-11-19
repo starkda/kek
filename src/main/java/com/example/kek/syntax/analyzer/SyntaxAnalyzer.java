@@ -12,6 +12,18 @@ public class SyntaxAnalyzer {
         this.abstractSyntaxTree = abstractSyntaxTree;
     }
 
+    public void makeSemanticAnalysis(){
+        checkFieldOfView();
+        simplifyExprations();
+    }
+
+    private void checkFieldOfView() {
+
+    }
+
+    private void simplifyExprations() {
+    }
+
     public void showAbstractSyntaxTree(){
         System.out.println("some tree will here :) ");
     }

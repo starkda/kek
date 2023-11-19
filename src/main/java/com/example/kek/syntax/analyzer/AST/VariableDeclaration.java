@@ -40,9 +40,10 @@ public class VariableDeclaration extends ASTNode {
         if (Objects.equals(categorizedTokens.get(currentPosition).getCode(), ":")) {
             currentPosition++;
             this.type = new Type(categorizedTokens.get(currentPosition), categorizedTokens);
-            currentPosition = this.type.lastToken.getOrderInTokenList(categorizedTokens);
-            if (currentPosition + 1 < categorizedTokens.size() && Objects.equals(categorizedTokens.get(currentPosition + 1).getCode(), "is")) {
-                this.initExp = new Expression(categorizedTokens.get(currentPosition + 2), categorizedTokens);
+            currentPosition = this.type.lastToken.getOrderInTokenList(categorizedTokens) + 1;
+            if (currentPosition < categorizedTokens.size() && Objects.equals(categorizedTokens.get(currentPosition).getCode(), "is")) {
+                currentPosition++;
+                this.initExp = new Expression(categorizedTokens.get(currentPosition), categorizedTokens);
                 this.lastToken = this.initExp.lastToken;
             }
             else this.lastToken = this.type.lastToken;

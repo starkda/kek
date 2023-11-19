@@ -7,12 +7,14 @@ import java.util.Objects;
 
 public class Statement extends ASTNode{
 
-    private Assignment assignment;
-    private RoutineCall routineCall;
-    private WhileLoop whileLoop;
-    private ForLoop forLoop;
-    private IfStatement ifStatement;
-    private ReturnCall returnCall;
+//    private Assignment assignment;
+//    private RoutineCall routineCall;
+//    private WhileLoop whileLoop;
+//    private ForLoop forLoop;
+//    private IfStatement ifStatement;
+//    private ReturnCall returnCall;
+
+    private ASTNode statement;
     public Statement(Token currentToken, List<Token> categorizedTokens) throws Exception {
         super(currentToken, categorizedTokens);
         createNode();
@@ -22,30 +24,30 @@ public class Statement extends ASTNode{
     void createNode() throws Exception {
         int currentPosition = this.currentToken.getOrderInTokenList(this.categorizedTokens);
         if(Objects.equals(currentToken.getCode(), "if")){
-            this.ifStatement = new IfStatement(currentToken, categorizedTokens);
-            this.lastToken = ifStatement.lastToken;
+            this.statement = new IfStatement(currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
         else if(Objects.equals(currentToken.getCode(), "return")){
-            this.returnCall = new ReturnCall(currentToken, categorizedTokens);
-            this.lastToken = returnCall.lastToken;
+            this.statement = new ReturnCall(currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
         else if(Objects.equals(currentToken.getCode(), "while")){
-            this.whileLoop = new WhileLoop(currentToken, categorizedTokens);
-            this.lastToken = whileLoop.lastToken;
+            this.statement = new WhileLoop(currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
         else if(Objects.equals(currentToken.getCode(), "for")){
-            this.forLoop = new ForLoop(currentToken, categorizedTokens);
-            this.lastToken = forLoop.lastToken;
+            this.statement = new ForLoop(currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
         // RoutineCall
-        else if(currentToken.getClass() == com.example.kek.lexical.analyzer.token.KeyWord.class){
-            this.routineCall = new RoutineCall(this.currentToken, categorizedTokens);
-            this.lastToken = routineCall.lastToken;
+        else if(currentPosition + 1 < categorizedTokens.size() && categorizedTokens.get(currentPosition + 1).getCode().equals("(")){
+            this.statement = new RoutineCall(this.currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
         // значит это должен быть Assignment
         else {
-            this.assignment = new Assignment(this.currentToken, categorizedTokens);
-            this.lastToken = assignment.lastToken;
+            this.statement = new Assignment(this.currentToken, categorizedTokens);
+            this.lastToken = statement.lastToken;
         }
     }
 }
