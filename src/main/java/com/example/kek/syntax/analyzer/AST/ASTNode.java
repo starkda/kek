@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class ASTNode {
 
-    protected final List<Token> categorizedTokens;
+    protected  List<Token> categorizedTokens;
     protected List<Token> code;
 
     protected Token lastToken;
@@ -16,6 +16,9 @@ public abstract class ASTNode {
     public ASTNode(Token currentToken, List<Token> categorizedTokens) {
         this.currentToken = currentToken;
         this.categorizedTokens = categorizedTokens;
+    }
+
+    ASTNode(){
     }
 
     abstract void createNode() throws Exception;

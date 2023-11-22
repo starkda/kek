@@ -47,4 +47,7 @@ public class Program extends ASTNode {
 
     }
 
+    public List<ASTNode> getAllMain() {
+        return allMain;
+    }
 }

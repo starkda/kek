@@ -8,10 +8,12 @@ import java.util.Objects;
 
 public class Expression extends ASTNode {
 
+    private Type getType;
     ArrayList<Token> logicOperators = new ArrayList<>();
     ArrayList<Relation> relations = new ArrayList<>();
     private final List<Token> tokens = new ArrayList<>();
     protected Token lastToken;
+    private Type type;
 
     public Expression(Token token, List<Token> categorizedTokens) throws Exception {
         super(token, categorizedTokens);
@@ -66,5 +68,44 @@ public class Expression extends ASTNode {
                 currentPosition = relations.get(relations.size() - 1).lastToken.getOrderInTokenList(categorizedTokens) + 1;
             }
         }
+    }
+
+    public boolean isTypeKnown() {
+        return true;
+    }
+
+    public Type getType() {
+        return this.type;
+    }
+
+    public Type getGetType() {
+        return getType;
+    }
+
+    public ArrayList<Token> getLogicOperators() {
+        return logicOperators;
+    }
+
+    public ArrayList<Relation> getRelations() {
+        return relations;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public Token getLastToken() {
+        return lastToken;
+    }
+
+    public boolean isSimple() throws Exception {
+        return relations.size() == 1 && logicOperators.size() == 0 && relations.get(0).isSimple();
+    }
+
+    public Summand getSimple() throws Exception {
+        if(this.isSimple())
+            return relations.get(relations.size() - 1).getSimple();
+        else
+            throw new Exception("Error: illegal declaration in Expression.getSimple(), it's not simple");
     }
 }

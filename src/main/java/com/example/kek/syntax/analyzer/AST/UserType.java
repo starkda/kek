@@ -52,4 +52,19 @@ public class UserType extends Type {
         }
     }
 
+    public List<VariableDeclaration> getVariableDeclarations() {
+        return variableDeclarations;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public ASTIdentifier getIdent() {
+        return ident;
+    }
 }

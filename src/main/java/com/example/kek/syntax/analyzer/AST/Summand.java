@@ -7,8 +7,8 @@ import java.util.List;
 public class Summand extends ASTNode {
 
     private String type = "";
-    private int intLiteral = 0;
-    private double realLiteral = 0.0;
+    private int intLiteral = -1000000;
+    private double realLiteral = -1000000.0;
     private boolean boolLiteral = true;
     private ModifiablePrimary modifiablePrimary;
     private RoutineCall routineCall;
@@ -16,6 +16,21 @@ public class Summand extends ASTNode {
     public Summand(Token currentToken, List<Token> categorizedTokens) throws Exception {
         super(currentToken, categorizedTokens);
         createNode();
+    }
+
+    public Summand(double realLiteral) throws Exception{
+        this.realLiteral = realLiteral;
+        this.type = "real";
+    }
+
+    public Summand(int intLiteral) throws Exception{
+        this.intLiteral = intLiteral;
+        this.type = "integer";
+    }
+
+    public Summand(boolean boolLiteral) throws Exception{
+        this.boolLiteral = boolLiteral;
+        this.type = "boolean";
     }
 
     @Override
@@ -57,4 +72,69 @@ public class Summand extends ASTNode {
 //                categorizedTokens.get(currentPosition).getClass().equals(com.example.kek.lexical.analyzer.token.Literal.class)
 //        )
 //    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public int getIntLiteral() {
+        return intLiteral;
+    }
+
+    public double getRealLiteral() {
+        return realLiteral;
+    }
+
+    public boolean getBoolLiteral() {
+        return boolLiteral;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setIntLiteral(int intLiteral) {
+        this.intLiteral = intLiteral;
+    }
+
+    public void setRealLiteral(double realLiteral) {
+        this.realLiteral = realLiteral;
+    }
+
+    public void setBoolLiteral(boolean boolLiteral) {
+        this.boolLiteral = boolLiteral;
+    }
+
+    public void setModifiablePrimary(ModifiablePrimary modifiablePrimary) {
+        this.modifiablePrimary = modifiablePrimary;
+    }
+
+    public void setRoutineCall(RoutineCall routineCall) {
+        this.routineCall = routineCall;
+    }
+
+    public ModifiablePrimary getModifiablePrimary() {
+        return modifiablePrimary;
+    }
+
+    public RoutineCall getRoutineCall() {
+        return routineCall;
+    }
+
+    public boolean isSimple() throws Exception {
+        return switch (this.type) {
+            case "modifiablePrimary" -> false;
+            case "routineCall" -> false;
+            case "integer" -> true;
+            case "real" -> true;
+            case "boolean" -> true;
+            default -> throw new Exception("Error: error in semantic of program (Summand.isSimple()) \n" +
+                    ", expected type one of summand's types, but receive other");
+        };
+    }
+
+    public Summand getSimple() {
+        return this;
+    }
 }

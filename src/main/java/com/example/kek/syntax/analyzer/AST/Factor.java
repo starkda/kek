@@ -74,4 +74,23 @@ public class Factor  extends ASTNode{
             }
         }
     }
+
+    public ArrayList<Token> getSignOperators() {
+        return signOperators;
+    }
+
+    public ArrayList<Summand> getSummands() {
+        return summands;
+    }
+
+    public boolean isSimple() throws Exception {
+        return summands.size() == 1 && signOperators.size() == 0 && summands.get(0).isSimple();
+    }
+
+    public Summand getSimple() throws Exception {
+        if(this.isSimple())
+            return summands.get(0).getSimple();
+        else
+            throw new Exception("Error: illegal declaration in Factor.getSimple(), it's not simple");
+    }
 }

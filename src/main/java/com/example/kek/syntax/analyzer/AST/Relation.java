@@ -70,4 +70,23 @@ public class Relation extends ASTNode {
             }
         }
     }
+
+    public ArrayList<Token> getSignOperators() {
+        return signOperators;
+    }
+
+    public ArrayList<Simple> getSimples() {
+        return simples;
+    }
+
+    public boolean isSimple() throws Exception {
+        return simples.size() == 1 && signOperators.size() == 0 && simples.get(0).isSimple();
+    }
+
+    public Summand getSimple() throws Exception {
+        if(this.isSimple())
+            return simples.get(0).getSimple();
+        else
+            throw new Exception("Error: illegal declaration in Relation.getSimple(), it's not simple");
+    }
 }

@@ -7,6 +7,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class RoutineDeclaration extends ASTNode {
+
+    public ASTIdentifier getIdent() {
+        return ident;
+    }
+
+    public List<VariableDeclaration> getVariablesDeclaration() {
+        return variablesDeclaration;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
     private ASTIdentifier ident;
     private List<VariableDeclaration> variablesDeclaration = new ArrayList<>();
     private Type type;

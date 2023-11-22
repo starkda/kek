@@ -6,6 +6,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class VariableDeclaration extends ASTNode {
+    public ASTIdentifier getIdent() {
+        return ident;
+    }
+
+    public Expression getInitExp() {
+        return initExp;
+    }
+
+    public Type getType() {
+        return type;
+    }
 
     private ASTIdentifier ident;
     private Expression initExp;

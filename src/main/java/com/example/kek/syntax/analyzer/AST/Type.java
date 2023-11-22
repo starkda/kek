@@ -6,6 +6,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class Type {
+    public Token getLastToken() {
+        return lastToken;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+
 
     protected Type(){}
 

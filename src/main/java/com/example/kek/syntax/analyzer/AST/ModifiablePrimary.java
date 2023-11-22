@@ -63,4 +63,20 @@ public class ModifiablePrimary extends ASTNode {
 
         }
     }
+
+    public int getFirstPosition() {
+        return firstPosition;
+    }
+
+    public ModifiablePrimary getModifiablePrimary() {
+        return modifiablePrimary;
+    }
+
+    public Expression getExpr() {
+        return expr;
+    }
+
+    public Identifier getIdent() {
+        return ident;
+    }
 }

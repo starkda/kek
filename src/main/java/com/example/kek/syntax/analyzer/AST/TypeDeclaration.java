@@ -6,6 +6,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class TypeDeclaration extends ASTNode {
+    public ASTIdentifier getIdent() {
+        return ident;
+    }
+
+    public Type getType() {
+        return type;
+    }
 
     private ASTIdentifier ident;
     private Type type;

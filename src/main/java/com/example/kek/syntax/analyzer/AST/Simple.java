@@ -71,4 +71,23 @@ public class Simple extends ASTNode {
             }
         }
     }
+
+    public ArrayList<Token> getSignOperators() {
+        return signOperators;
+    }
+
+    public ArrayList<Factor> getFactors() {
+        return factors;
+    }
+
+    public boolean isSimple() throws Exception {
+        return factors.size() == 1 && signOperators.size() == 0 && factors.get(0).isSimple();
+    }
+
+    public Summand getSimple() throws Exception {
+        if(this.isSimple())
+            return factors.get(0).getSimple();
+        else
+            throw new Exception("Error: illegal declaration in Simple.getSimple(), it's not simple");
+    }
 }

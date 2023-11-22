@@ -47,4 +47,13 @@ public class RoutineCall extends ASTNode {
         else throw new Exception("Error: illegal declaration in RoutineCall    " + categorizedTokens.get(currentPosition).showCodeLinePosition() +
                 ", but expected Identifier");
     }
+
+
+    public ASTIdentifier getIdent() {
+        return ident;
+    }
+
+    public List<Expression> getFunctionParams() {
+        return functionParams;
+    }
 }

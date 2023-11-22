@@ -34,4 +34,13 @@ public class ArrayType extends Type {
         currentPosition = this.type.lastToken.getOrderInTokenList(categorizedTokens);
         this.lastToken = categorizedTokens.get(currentPosition);
     }
+
+    public Expression getExp() {
+        return exp;
+    }
+
+    @Override
+    public Type getType() {
+        return type;
+    }
 }
