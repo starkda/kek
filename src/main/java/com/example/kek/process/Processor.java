@@ -21,7 +21,7 @@ public class Processor {
         List<Token> categorizeTokens = lexicalAnalyzer.genTokensFromLexicalAnalyzer(fileName);
       //  categorizeTokens.forEach(Token::print); // print all tokens after lexical analyze
 
-        SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(new AbstractSyntaxTree(categorizeTokens, entryPoint));
+        SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(new AbstractSyntaxTree(categorizeTokens));
         syntaxAnalyzer.makeSemanticAnalysis();
 
         syntaxAnalyzer.showAbstractSyntaxTree();
