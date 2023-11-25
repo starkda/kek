@@ -8,13 +8,13 @@ import java.util.List;
 
 public class Processor {
 
-    private final String fileName, entryPoint;
+    private final String fileName;
+    public static String entryPoint;
     private final LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 
 
-    public Processor(String fileName, String entryPoint) {
+    public Processor(String fileName) {
         this.fileName = fileName;
-        this.entryPoint = entryPoint;
     }
 
     public void process() throws Exception {
