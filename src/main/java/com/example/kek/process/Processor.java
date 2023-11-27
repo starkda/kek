@@ -2,8 +2,8 @@ package com.example.kek.process;
 
 import com.example.kek.lexical.analyzer.LexicalAnalyzer;
 import com.example.kek.lexical.analyzer.token.Token;
-import com.example.kek.syntax.analyzer.SemanticAnalyzer;
-import com.example.kek.syntax.analyzer.AST.AbstractSyntaxTree;
+import com.example.kek.semantic.analyzer.SemanticAnalyzer;
+import com.example.kek.semantic.analyzer.AST.AbstractSyntaxTree;
 import java.util.List;
 
 public class Processor {
