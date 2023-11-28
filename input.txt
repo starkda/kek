@@ -1,27 +1,17 @@
-routine recursiveFunction1(var a : integer) : integer is
+routine mainst(var a : integer, var b : integer) : boolean is
+    a := 1
+    b := a + 1
     if a > 0
         then return a + recursiveFunction(a - 1)
         else return a
     end
 end
 
-
-routine recursiveFunction2(var a : integer) : integer is
+routine main(var a : integer, var b : integer) : boolean is
+    a := 1
+    b := a + 1
     if a > 0
         then return a + recursiveFunction(a - 1)
         else return a
-    end
-end
-
-routine recursiveFunction3(var a : integer) : integer is
-    var ara : integer is 1 + 2 + 3
-    var arab : integer is 1 + 2 + 3 + 4
-    if a > 0
-        then return a + recursiveFunction(a - 1)
-        else return a
-    end
-    var i : integer is 0
-    for i in 1 .. arraySize loop
-        ara := ara + i
     end
 end

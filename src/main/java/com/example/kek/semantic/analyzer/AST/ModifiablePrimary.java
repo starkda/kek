@@ -12,7 +12,7 @@ public class ModifiablePrimary extends ASTNode {
 
     private Expression expr;
 
-    private Identifier ident;
+    private ASTIdentifier ident;
 
 
     public ModifiablePrimary(Token currentToken, List<Token> categorizedTokens, int firstPosition) throws Exception {
@@ -40,8 +40,8 @@ public class ModifiablePrimary extends ASTNode {
                     throw new Exception("Error: illegal declaration in  ModifiablePrimary   " +
                             categorizedTokens.get(currentPosition).showCodeLinePosition() + " - empty left part ..... (-_-) ");
             } else if (categorizedTokens.get(currentPosition).getClass().equals(com.example.kek.lexical.analyzer.token.Identifier.class)) {
-                this.ident = (Identifier) categorizedTokens.get(currentPosition);
-                currentPosition = this.ident.getOrderInTokenList(categorizedTokens) + 1;
+                this.ident = new ASTIdentifier(categorizedTokens.get(currentPosition).getCode(), String.valueOf(categorizedTokens.get(currentPosition).getLine()));
+                currentPosition++;
                 this.modifiablePrimary = new ModifiablePrimary(categorizedTokens.get(currentPosition), this.categorizedTokens, this.firstPosition);
                 currentPosition = this.modifiablePrimary.lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 this.lastToken = this.modifiablePrimary.lastToken;
@@ -75,7 +75,7 @@ public class ModifiablePrimary extends ASTNode {
         return expr;
     }
 
-    public Identifier getIdent() {
+    public ASTIdentifier getIdent() {
         return ident;
     }
 }

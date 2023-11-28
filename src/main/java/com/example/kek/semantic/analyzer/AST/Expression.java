@@ -15,6 +15,9 @@ public class Expression extends ASTNode {
     protected Token lastToken;
     private Type type;
 
+    @Deprecated
+    public Expression(){}
+
     public Expression(Token token, List<Token> categorizedTokens) throws Exception {
         super(token, categorizedTokens);
         createNode();

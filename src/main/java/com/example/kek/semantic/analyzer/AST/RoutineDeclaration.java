@@ -40,14 +40,19 @@ public class RoutineDeclaration extends ASTNode {
         this.ident = new ASTIdentifier(categorizedTokens.get(currentPosition).getCode(), String.valueOf(categorizedTokens.get(currentPosition).getLine()));
         currentPosition++;
         if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), "(")) {
+            int flag = -1;
             while (true) {
                 currentPosition++;
                 if(this.categorizedTokens.size() == currentPosition)
                     throw new Exception("Error: end of RoutineDeclaration :    , but expected '(' ");
-
+                if(categorizedTokens.get(currentPosition).getCode().equals(",") && flag != 0) {
+                    flag = 0;
+                    continue;
+                }
                 if(Objects.equals(this.categorizedTokens.get(currentPosition).getCode(), ")"))
                     break;
                 this.variablesDeclaration.add(new VariableDeclaration(categorizedTokens.get(currentPosition), categorizedTokens));
+                flag = 1;
                 // id последнего токена
                 currentPosition = this.variablesDeclaration.get(this.variablesDeclaration.size() - 1).lastToken.getOrderInTokenList(categorizedTokens);
             }

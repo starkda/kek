@@ -4,6 +4,8 @@ import com.example.kek.semantic.analyzer.AST.*;
 import com.example.kek.semantic.util.Converter;
 import com.example.kek.semantic.util.LogicOperator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SemanticAnalyzer {
@@ -33,11 +35,11 @@ public class SemanticAnalyzer {
         if (abstractSyntaxTree.getProgram() != null && abstractSyntaxTree.getProgram().getAllMain() != null)
             for (ASTNode node : abstractSyntaxTree.getProgram().getAllMain()) {
                 if (node.getClass().equals(VariableDeclaration.class)) {
-                    checkAndSimplifyVariableDeclaration(this.programStack.copy(), node, 0, false);
+                    checkAndSimplifyVariableDeclaration(this.programStack.copy(), node, 0, true);
                 } else if (node.getClass().equals(RoutineDeclaration.class)) {
                     checkAndSimplifyRoutineDeclaration(this.programStack.copy(), node);
                 } else if (node.getClass().equals(TypeDeclaration.class)) {
-                    checkTypeDeclaration(this.programStack.copy(), (TypeDeclaration)node, true, 0, true);
+                    checkTypeDeclaration(this.programStack.copy(), (TypeDeclaration) node, true, 0, true);
                 } else
                     throw new Exception("Error: illegal declaration in program (SemanticAnalyzer.checkFieldOfView) \n" +
                             ", expected 'some' node, but  required: " + node.getClass());
@@ -507,12 +509,12 @@ public class SemanticAnalyzer {
         if (!(factor.getSummands().size() == factor.getSignOperators().size() + 1))
             throw new Exception("Error: error in semantic of program (SemanticAnalyzer.checkFactor) \n" +
                     ", expected factors == signOperators + 1 ");
-        for (int i = 0; i < factor.getSummands().size() - 1; ++i)
-            checkAndSimplifySummand(upperProgramStack, factor.getSummands().get(i));
+        for (int i = 0; i < factor.getSummands().size(); ++i)
+            checkAndSimplifySummand(upperProgramStack, factor.getSummands().get(i), factor);
 
         if (itIsNotLoop)
             // здесь упрощается текущий Factor
-            for (int i = 0; i < factor.getSummands().size(); ++i)
+            for (int i = 0; i < factor.getSummands().size() - 1; ++i)
                 if (i + 1 < factor.getSummands().size())
 
                     // если текущий и соседний Factor-ы простые
@@ -579,17 +581,18 @@ public class SemanticAnalyzer {
                     }
     }
 
-    private void checkAndSimplifySummand(ProgramStack upperProgramStack, Summand summand) throws Exception {
+
+    // проверка на правильность + упрощение Summand (если какой-то ModifiablePrimary есть в стеке, то заменить
+    private void checkAndSimplifySummand(ProgramStack upperProgramStack, Summand summand, Factor factor) throws Exception {
         switch (summand.getType()) {
             case "modifiablePrimary":
                 upperProgramStack.checkTableElement("variable", summand);
                 if (upperProgramStack.getTableElementInitial("variable", summand).isSimple()) {
-                    summand = upperProgramStack.getTableElementInitial("variable", summand).getSimple();
+                    factor.replaceSummand(summand, upperProgramStack.getTableElementInitial("variable", summand).getSimple());
                 }
                 break;
             case "routineCall":
                 upperProgramStack.checkTableElement("function", summand);
-                ;
                 break;
             case "integer":
                 break;
@@ -602,7 +605,6 @@ public class SemanticAnalyzer {
                         ", expected type one of summand's types, but receive other");
         }
     }
-
 
 
     private void checkAndSimplifyRoutineDeclaration(ProgramStack upperProgramStack, ASTNode astNode) throws Exception {
@@ -618,13 +620,14 @@ public class SemanticAnalyzer {
             if (statement.getClass().equals(VariableDeclaration.class)) {
                 checkAndSimplifyVariableDeclaration(upperProgramStack.copy(), statement, level, itIsNotLoop);
             } else if (statement.getClass().equals(TypeDeclaration.class)) {
+
                 // TODO написать чекер для нод в програм стеке
-                checkTypeDeclaration(upperProgramStack.copy(), (TypeDeclaration)statement, level == 0, level, itIsNotLoop);
+                checkTypeDeclaration(upperProgramStack.copy(), (TypeDeclaration) statement, level == 0, level, itIsNotLoop);
             } else if (statement.getClass().equals(Statement.class)) {
                 if (((Statement) statement).getStatement().getClass().equals(Assignment.class)) {
                     checkAndSimplifyAssignment(upperProgramStack, (Assignment) ((Statement) statement).getStatement(), level, itIsNotLoop);
                 } else if (((Statement) statement).getStatement().getClass().equals(RoutineCall.class)) {
-                    upperProgramStack.checkAstNodeExistence(((Statement) statement).getStatement(), "function", true);
+                    upperProgramStack.checkAstNodeExistence(((Statement) statement).getStatement(), "function", true, level);
                 } else if (((Statement) statement).getStatement().getClass().equals(IfStatement.class)) {
                     checkAndSimplifyIfStatement(upperProgramStack, (IfStatement) ((Statement) statement).getStatement(), level, itIsNotLoop);
                 } else if (((Statement) statement).getStatement().getClass().equals(ForLoop.class)) {
@@ -647,7 +650,7 @@ public class SemanticAnalyzer {
 
     private void checkAndSimplifyAssignment(ProgramStack upperProgramStack, Assignment assignment, int level, boolean itIsNotLoop) throws Exception {
         checkAndSimplifyExpression(upperProgramStack, assignment.getExpression(), itIsNotLoop);
-        upperProgramStack.addASTNode(assignment, level);
+        upperProgramStack.replaceASTNode(assignment, level);
     }
 
     private void checkAndSimplifyIfStatement(ProgramStack upperProgramStack, IfStatement ifStatement, int level, boolean itIsNotLoop) throws Exception {
@@ -658,7 +661,7 @@ public class SemanticAnalyzer {
     }
 
     private void checkAndSimplifyForLoop(ProgramStack upperProgramStack, ForLoop forLoop, int level, boolean itIsNotLoop) throws Exception {
-        upperProgramStack.checkAstNodeExistence(forLoop.getIdent(), "variable", true);
+        upperProgramStack.checkAstNodeExistence(forLoop.getIdent(), "variable", true, level);
         checkAndSimplifyRange(upperProgramStack, forLoop.getRange(), itIsNotLoop);
         checkAndSimplifyBody(upperProgramStack.copy(), forLoop.getBody(), level + 1, false);
     }
@@ -675,17 +678,20 @@ public class SemanticAnalyzer {
 
 
     private void checkTypeDeclaration(ProgramStack upperProgramStack, TypeDeclaration typeDeclaration, Boolean isGlobalScope, int level, boolean itIsNotLoop) throws Exception {
-        upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true);
-        if(typeDeclaration.getType() != null && typeDeclaration.getType().getType().getClass().equals(UserType.class))
-            upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true);
+        upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true, level);
+        if (typeDeclaration.getType() != null && typeDeclaration.getType().getType().getClass().equals(UserType.class))
+            upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true, level);
 
     }
 
 
     // проверка что в существует точка вхождения в программу -> функция, более того там 0 аргументов (?)
-    private void checkEntryPoint() {
-//        (?)
-        return;
+    private void checkEntryPoint() throws Exception {
+        try {
+            programStack.checkAstNodeExistence(new RoutineCall(new ASTIdentifier(entryPoint, "0"), List.of(new Expression(), new Expression())), "function", true, 0);
+        } catch (Exception ex) {
+            throw new Exception("can't find entry point ");
+        }
     }
 
     public void showAbstractSyntaxTree() {

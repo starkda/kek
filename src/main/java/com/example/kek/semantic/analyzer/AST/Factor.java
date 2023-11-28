@@ -10,6 +10,14 @@ public class Factor  extends ASTNode{
 
     ArrayList<Token> signOperators = new ArrayList<>();
     ArrayList<Summand> summands = new ArrayList<>();
+
+    public void replaceSummand(Summand from, Summand to){
+        int i = summands.indexOf(from);
+        if(i != -1){
+            summands.remove(from);
+            summands.add(i, to);
+        }
+    }
     public Factor(Token currentToken, List<Token> categorizedTokens) throws Exception {
         super(currentToken, categorizedTokens);
         createNode();
