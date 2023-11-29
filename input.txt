@@ -1,17 +1,17 @@
-routine mainst(var a : integer, var b : integer) : boolean is
-    a := 1
-    b := a + 1
-    if a > 0
-        then return a + recursiveFunction(a - 1)
-        else return a
-    end
+routine booleanFunction(var a : boolean) : boolean is
+    return true
 end
 
-routine main(var a : integer, var b : integer) : boolean is
-    a := 1
-    b := a + 1
-    if a > 0
-        then return a + recursiveFunction(a - 1)
-        else return a
-    end
+routine realFunc(var a : real) : real is
+    var b : real
+    return 1.0
+end
+
+routine simpleFunc(var a : integer) : integer is
+    var kek is a * 3
+    return kek
+end
+
+routine main(var a : integer, var b : integer) is
+    simpleFunc(7)
 end
