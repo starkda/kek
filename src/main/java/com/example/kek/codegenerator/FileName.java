@@ -4,5 +4,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FileName {
-    public static final String value = "out.j";
+    public static String value = "out.j";
 }

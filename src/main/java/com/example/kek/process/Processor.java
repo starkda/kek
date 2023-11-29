@@ -1,5 +1,6 @@
 package com.example.kek.process;
 
+import com.example.kek.codegenerator.CodeGenerator;
 import com.example.kek.lexical.analyzer.LexicalAnalyzer;
 import com.example.kek.lexical.analyzer.token.Token;
 import com.example.kek.syntax.analyzer.SyntaxAnalyzer;
@@ -20,11 +21,12 @@ public class Processor {
     public void process() throws Exception {
         List<Token> categorizeTokens = lexicalAnalyzer.genTokensFromLexicalAnalyzer(fileName);
       //  categorizeTokens.forEach(Token::print); // print all tokens after lexical analyze
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(categorizeTokens);
 
-        SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(new AbstractSyntaxTree(categorizeTokens));
-        syntaxAnalyzer.makeSemanticAnalysis();
-
+        SyntaxAnalyzer syntaxAnalyzer = new SyntaxAnalyzer(ast);
         syntaxAnalyzer.showAbstractSyntaxTree();
+        CodeGenerator codeGenerator = new CodeGenerator(ast);
+        codeGenerator.generateCode();
     }
 
 }

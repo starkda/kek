@@ -1,0 +1,16 @@
+routine booleanFunction(var a : boolean) : boolean is
+    return true
+end
+
+routine realFunc(var a : real) : real is
+    var b : real
+    return 1.0
+end
+
+routine simpleFunc(var a : integer) : integer is
+    var kek is a + 3
+    return kek
+end
+routine entryPoint() is
+    simpleFunc()
+end

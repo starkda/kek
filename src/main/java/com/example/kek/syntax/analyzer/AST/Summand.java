@@ -1,15 +1,17 @@
 package com.example.kek.syntax.analyzer.AST;
 
 import com.example.kek.lexical.analyzer.token.Token;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class Summand extends ASTNode {
 
+    private Boolean boolLiteral = true;
     private String type = "";
     private int intLiteral = 0;
     private double realLiteral = 0.0;
-    private boolean boolLiteral = true;
     private ModifiablePrimary modifiablePrimary;
     private RoutineCall routineCall;
 

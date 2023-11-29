@@ -25,4 +25,8 @@ public class PrimitiveType extends Type {
     public PrimitiveType(Token token, List<Token> categorizedTokens) throws Exception {
         super(token, categorizedTokens);
     }
+
+    public String getTypePrim(){
+        return this.type;
+    }
 }

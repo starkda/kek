@@ -1,0 +1,7 @@
+routine simpleFunc(var a : integer) : integer is
+    var kek is a + 3
+    return kek
+end
+routine entryPoint() : integer is
+    return simpleFunc()
+end

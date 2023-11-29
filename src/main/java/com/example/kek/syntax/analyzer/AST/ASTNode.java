@@ -1,10 +1,12 @@
 package com.example.kek.syntax.analyzer.AST;
 
 import com.example.kek.lexical.analyzer.token.Token;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public abstract class ASTNode {
 
     protected final List<Token> categorizedTokens;
