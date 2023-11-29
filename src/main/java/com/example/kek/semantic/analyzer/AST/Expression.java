@@ -1,11 +1,13 @@
 package com.example.kek.semantic.analyzer.AST;
 
 import com.example.kek.lexical.analyzer.token.Token;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 public class Expression extends ASTNode {
 
     private Type getType;
