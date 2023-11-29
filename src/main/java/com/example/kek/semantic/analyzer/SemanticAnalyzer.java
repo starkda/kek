@@ -587,7 +587,8 @@ public class SemanticAnalyzer {
         switch (summand.getType()) {
             case "modifiablePrimary":
                 upperProgramStack.checkTableElement("variable", summand);
-                if (upperProgramStack.getTableElementInitial("variable", summand).isSimple()) {
+                if (upperProgramStack.getTableElementInitial("variable", summand) != null &&
+                        upperProgramStack.getTableElementInitial("variable", summand).isSimple()) {
                     factor.replaceSummand(summand, upperProgramStack.getTableElementInitial("variable", summand).getSimple());
                 }
                 break;
