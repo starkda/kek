@@ -1,8 +1,8 @@
 package com.example.kek.codegenerator.strategy;
 
-import com.example.kek.syntax.analyzer.AST.ASTNode;
-import com.example.kek.syntax.analyzer.AST.FieldDeclaration;
-import com.example.kek.syntax.analyzer.AST.PrimitiveType;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.FieldDeclaration;
+import com.example.kek.semantic.analyzer.AST.PrimitiveType;
 
 import java.io.IOException;
 import java.util.List;

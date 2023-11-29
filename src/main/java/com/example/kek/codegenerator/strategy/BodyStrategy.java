@@ -1,7 +1,7 @@
 package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.Value;
-import com.example.kek.syntax.analyzer.AST.*;
+import com.example.kek.semantic.analyzer.AST.*;
 
 import java.io.IOException;
 import java.util.List;

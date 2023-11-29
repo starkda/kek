@@ -1,8 +1,8 @@
 package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.Value;
-import com.example.kek.syntax.analyzer.AST.ASTNode;
-import com.example.kek.syntax.analyzer.AST.ReturnCall;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.ReturnCall;
 
 import java.io.IOException;
 import java.util.List;

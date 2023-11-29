@@ -1,10 +1,10 @@
 package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.Value;
-import com.example.kek.syntax.analyzer.AST.ASTNode;
-import com.example.kek.syntax.analyzer.AST.Expression;
-import com.example.kek.syntax.analyzer.AST.PrimitiveType;
-import com.example.kek.syntax.analyzer.AST.VariableDeclaration;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.Expression;
+import com.example.kek.semantic.analyzer.AST.PrimitiveType;
+import com.example.kek.semantic.analyzer.AST.VariableDeclaration;
 
 import java.io.IOException;
 import java.util.List;

@@ -14,6 +14,26 @@ routine recursiveFunction(var a : integer) : integer is
     end
 end
 
+routine recursiveFunction2(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+end
+
+routine recursiveFunction3(var a : integer) : integer is
+    var ara : integer is 1 + 2 + 3
+    var arab : integer is 1 + 2 + 3 + 4
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+    var i : integer is 0
+    for i in 1 .. arraySize loop
+        ara := ara + i
+    end
+end
+
 routine arrayFunction(var ar : array[] integer) : array[] integer is
     if ar.size > 2
         then
@@ -33,8 +53,10 @@ routine fillingArray(var ar : array[] integer) : array[] integer is
 end
 
 routine createLinkedList() : testStruct is
+    var zero : testStruct
     var first : testStruct is testStruct(
                             1.1,
+                            zero,
                             12,
                             15
                             )
@@ -56,3 +78,10 @@ routine Main() is
     var arithmeticSum is recursiveFunction(it)
     var linkedList : testStruct is createLinkedList
 end
+
+var a : testStruct is testStruct(
+                                     1.1 + 1.15,
+                                     first,
+                                     13 + 14,
+                                     15 + 123
+                                     )

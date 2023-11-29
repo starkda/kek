@@ -2,10 +2,10 @@ package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.Value;
 import com.example.kek.process.Processor;
-import com.example.kek.syntax.analyzer.AST.ASTNode;
-import com.example.kek.syntax.analyzer.AST.FieldDeclaration;
-import com.example.kek.syntax.analyzer.AST.Program;
-import com.example.kek.syntax.analyzer.AST.VariableDeclaration;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.FieldDeclaration;
+import com.example.kek.semantic.analyzer.AST.Program;
+import com.example.kek.semantic.analyzer.AST.VariableDeclaration;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ProgramStrategy extends GenerationStrategy {
         append("\n");
         append(".method public static main([Ljava/lang/String;)V");
         appendStackAllocation();
-        appendTabbed(String.format("invokestatic Kek/%s()V", Processor.entryPoint));
+        appendTabbed(String.format("invokestatic Kek/%s()V", "entryPoint"));
         appendTabbed("return");
         append(".end method");
     }

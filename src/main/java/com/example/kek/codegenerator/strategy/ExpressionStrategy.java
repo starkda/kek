@@ -2,9 +2,9 @@ package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.Value;
 import com.example.kek.lexical.analyzer.token.Token;
-import com.example.kek.syntax.analyzer.AST.ASTNode;
-import com.example.kek.syntax.analyzer.AST.Expression;
-import com.example.kek.syntax.analyzer.AST.Relation;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.Expression;
+import com.example.kek.semantic.analyzer.AST.Relation;
 
 import java.io.IOException;
 import java.util.*;

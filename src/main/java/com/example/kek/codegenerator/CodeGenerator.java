@@ -4,7 +4,7 @@ import com.example.kek.codegenerator.strategy.FieldDeclarationStrategy;
 import com.example.kek.codegenerator.strategy.GenerationStrategy;
 import com.example.kek.codegenerator.strategy.ProgramStrategy;
 import com.example.kek.codegenerator.strategy.RoutineDeclarationStrategy;
-import com.example.kek.syntax.analyzer.AST.*;
+import com.example.kek.semantic.analyzer.AST.*;
 import lombok.RequiredArgsConstructor;
 
 import java.io.BufferedWriter;
@@ -27,7 +27,7 @@ public class CodeGenerator {
         System.out.println(FileName.value);
         try(BufferedWriter fileRef = new BufferedWriter(new FileWriter(FileName.value));){
             file = fileRef;
-            generationDfs(abstractSyntaxTree.program);
+            generationDfs(abstractSyntaxTree.getProgram());
         }
         catch (IOException e){
             System.out.println("error happened");

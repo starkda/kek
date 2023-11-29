@@ -2,7 +2,7 @@ package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.CodeGenerator;
 import com.example.kek.codegenerator.Value;
-import com.example.kek.syntax.analyzer.AST.ASTNode;
+import com.example.kek.semantic.analyzer.AST.ASTNode;
 
 import java.io.IOException;
 import java.util.*;
