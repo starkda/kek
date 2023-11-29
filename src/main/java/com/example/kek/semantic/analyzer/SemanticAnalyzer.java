@@ -79,11 +79,14 @@ public class SemanticAnalyzer {
 
         // проверка на то, что Type initial value == variable Type TODO сделать для сложных типов (ArrayType + UserType)
         if (((VariableDeclaration) astNode).getInitExp() != null &&
-                ((VariableDeclaration) astNode).getType() != null && ((VariableDeclaration) astNode).getType().getType() != null) {
+                ((VariableDeclaration) astNode).getType() != null &&
+                ((VariableDeclaration) astNode).getType().getType() != null) {
             // если тип у initExp - известный +
             if (((VariableDeclaration) astNode).getInitExp().isTypeKnown() &&
+                    ((VariableDeclaration) astNode).getInitExp().isSimple() &&
                     !((PrimitiveType) ((VariableDeclaration) astNode).getType().getType()).getTypePrim().
-                            equals(((VariableDeclaration) astNode).getInitExp().getSimple().getType()))
+                            equals(
+                                    ((VariableDeclaration) astNode).getInitExp().getSimple().getType()))
                 throw new Exception("Error: illegal type in program (SemanticAnalyzer.checkVariableDeclaration) \n" +
                         ", expected " + ((VariableDeclaration) astNode).getType().getType().getClass() + "  , but  receive: "
                         + ((VariableDeclaration) astNode).getInitExp().getType().getClass());
@@ -689,7 +692,7 @@ public class SemanticAnalyzer {
     // проверка что в существует точка вхождения в программу -> функция, более того там 0 аргументов (?)
     private void checkEntryPoint() throws Exception {
         try {
-            programStack.checkAstNodeExistence(new RoutineCall(new ASTIdentifier(entryPoint, "0"), List.of(new Expression(), new Expression())), "function", true, 0);
+            programStack.checkAstNodeExistence(new RoutineCall(new ASTIdentifier(entryPoint, "0"), List.of()), "function", true, 0);
         } catch (Exception ex) {
             throw new Exception("can't find entry point ");
         }
