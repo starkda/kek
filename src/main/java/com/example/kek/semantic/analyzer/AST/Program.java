@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Program extends ASTNode {
-    private List<ASTNode> allMain = new ArrayList<>();
+    public List<ASTNode> allMain = new ArrayList<>();
     public Program(Token token, List<Token> categorizedTokens) throws Exception {
         super(token, categorizedTokens);
         createNode();

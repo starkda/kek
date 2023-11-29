@@ -2,9 +2,11 @@ package com.example.kek.semantic.analyzer.AST;
 
 import com.example.kek.lexical.analyzer.token.Identifier;
 import com.example.kek.lexical.analyzer.token.Token;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class ModifiablePrimary extends ASTNode {
 
     private final int firstPosition;
