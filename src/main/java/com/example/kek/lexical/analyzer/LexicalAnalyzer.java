@@ -20,7 +20,7 @@ public class LexicalAnalyzer {
             "var", "routine", "end",
             "integer", "real", "boolean",
             "record", "array", "is",
-            "if", "then", "else", "type");
+            "if", "then", "else", "type", "return");
 
 
     public List<Token> parseTokens(String sourceCode) {
