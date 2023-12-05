@@ -54,13 +54,21 @@ public class ModifiablePrimary extends ASTNode {
                         throw new Exception("Error: illegal declaration in  ModifiablePrimary   " +
                                 categorizedTokens.get(currentPosition).showCodeLinePosition() + " , but expected ']'");
                 }
-                this.modifiablePrimary = new ModifiablePrimary(categorizedTokens.get(currentPosition), this.categorizedTokens, this.firstPosition);
-                currentPosition = this.modifiablePrimary.lastToken.getOrderInTokenList(categorizedTokens) + 1;
-                this.lastToken = this.modifiablePrimary.lastToken;
-                if (this.modifiablePrimary.ident == null)
+                if (categorizedTokens.get(currentPosition).getCode().equals(".")){
+                    currentPosition++;
+                    this.modifiablePrimary = new ModifiablePrimary(categorizedTokens.get(currentPosition), this.categorizedTokens, this.firstPosition);
+                    currentPosition = this.modifiablePrimary.lastToken.getOrderInTokenList(categorizedTokens) + 1;
+                    this.lastToken = this.modifiablePrimary.lastToken;
+                }else {
+                    this.lastToken = categorizedTokens.get(currentPosition - 1);
+                    break;
+                }
+
+                if (this.modifiablePrimary != null && this.modifiablePrimary.ident == null)
                     this.modifiablePrimary = null;
-            } else if (categorizedTokens.get(currentPosition).getCode().equals("."))
+            } else if (categorizedTokens.get(currentPosition).getCode().equals(".")) {
                 currentPosition++;
+            }
 
         }
     }
