@@ -1,0 +1,7 @@
+routine Main() is
+    var a : integer is 100
+    if a > 0
+        then return a
+        else return a
+    end
+end
