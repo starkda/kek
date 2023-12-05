@@ -30,6 +30,10 @@ public class ProgramStack {
         private String line;
         private List<Argument> arguments = new ArrayList<>();
         private int level;
+
+        public Type getType() {
+            return this.type;
+        }
     }
 
     // нужно для параметров функции
@@ -88,7 +92,7 @@ public class ProgramStack {
                             return elem.initial;
                     }
                 throw new Exception("Error: illegal declaration in ProgramStack.getTableElementInitial(VARIABLE) \n" +
-                        ", expected VARIABLE, but  receive : FUNCTION ");
+                        ", expected VARIABLE, but  receive : STRUCTURE ");
             }
             case FUNCTION -> {
                 throw new Exception("Error: illegal declaration in ProgramStack.getTableElementInitial(FUNCTION) \n" +
@@ -99,6 +103,72 @@ public class ProgramStack {
                             ", expected 'NOT TYPE' ");
             default ->
                     throw new Exception("Error: illegal declaration in ProgramStack.getTableElementInitial(VARIABLE) \n" +
+                            ", expected VARIABLE or FUNCTION ");
+        }
+    }
+
+    public TableElement getTableElement(String category, ASTNode node) throws Exception {
+        switch (category) {
+            case VARIABLE -> {
+                if ((node).getClass().equals(ASTIdentifier.class)) {
+                    for (TableElement elem : this.table) {
+                        // если это просто переменная (не элемент массива или класса, то)
+                        if (((ASTIdentifier) node).getName().equals(elem.name) && elem.category.equals("variable")) {
+                            return elem;
+                        }
+                    }
+
+                    throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(VARIABLE) \n" +
+                            ", expected: some Type, but  receive : not found ");
+                }
+                throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(VARIABLE) \n" +
+                        ", expected VARIABLE, but  receive some trash");
+            }
+            case FUNCTION -> {
+                if ((node).getClass().equals(RoutineCall.class)) {
+                    for (TableElement elem : this.table) {
+                        // если нейминг у функций одинаковый и кол-во параметров == => они сходятся
+                        if (((RoutineCall) node).getIdent().getName().equals(elem.name) && elem.arguments != null &&
+                                ((RoutineCall) node).getFunctionParams() != null && ((RoutineCall) node).getFunctionParams().size() == elem.arguments.size() &&
+                                elem.category.equals("function")) {
+                            return elem;
+                        }
+                    }
+                    throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(VARIABLE) \n" +
+                            ", expected: some Type, but  receive : not found ");
+                } else if ((node).getClass().equals(RoutineDeclaration.class)) {
+                    for (TableElement elem : this.table) {
+                        // если нейминг у функций одинаковый и кол-во параметров == => они сходятся
+                        if (((RoutineDeclaration) node).getIdent().getName().equals(elem.name) && elem.arguments != null &&
+                                ((RoutineDeclaration) node).getVariablesDeclaration() != null && ((RoutineDeclaration) node).getVariablesDeclaration().size() == elem.arguments.size() &&
+                                elem.category.equals("function")) {
+                            return elem;
+                        }
+                    }
+                    throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(VARIABLE) \n" +
+                            ", expected: some Type, but  receive : not found ");
+                }
+                throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(FUNCTION) \n" +
+                        ", expected FUNCTION, but  receive some trash");
+            }
+            case TYPE -> {
+                if (((Type) (node)).getType().getClass().equals(UserType.class)) {
+                    for (TableElement elem : this.table) {
+                        // если это просто переменная (не элемент массива или класса, то)
+                        if (((UserType)((Type) node).getType()).getIdent().getName().equals(elem.name) && (elem.category.equals("type"))) {
+                            return elem;
+                        } else
+                            throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(TYPE) \n" +
+                                    ", expected: other");
+                    }
+                    throw new Exception("Error: illegal declaration in ProgramStack.checkAstNodeExistence(TYPE) \n" +
+                            ", expected User TYPE, but  receive: ");
+                }
+                throw new Exception("Error: illegal declaration in ProgramStack.checkAstNodeExistence(TYPE) \n" +
+                        ", expected User TYPE, but  receive: ");
+            }
+            default ->
+                    throw new Exception("Error: illegal declaration in ProgramStack.getTableElement(VARIABLE) \n" +
                             ", expected VARIABLE or FUNCTION ");
         }
     }
@@ -115,8 +185,8 @@ public class ProgramStack {
                         }
                     }
 
-                        throw new Exception("Error: illegal declaration in ProgramStack.getTableElementType(VARIABLE) \n" +
-                                ", expected: some Type, but  receive : not found ");
+                    throw new Exception("Error: illegal declaration in ProgramStack.getTableElementType(VARIABLE) \n" +
+                            ", expected: some Type, but  receive : not found ");
                 }
                 throw new Exception("Error: illegal declaration in ProgramStack.getTableElementType(VARIABLE) \n" +
                         ", expected VARIABLE, but  receive some trash");
@@ -173,7 +243,7 @@ public class ProgramStack {
                         if (((ASTIdentifier) node).getName().equals(elem.name) && elem.category.equals("variable")) {
                             if (elem.level == level)
                                 isLevelEquel = true;
-                            if(!shouldExist)
+                            if (!shouldExist)
                                 table.remove(elem);
                             isExist = true;
                             break;
@@ -197,7 +267,7 @@ public class ProgramStack {
                                 elem.category.equals("function")) {
                             if (elem.level == level)
                                 isLevelEquel = true;
-                            if(!shouldExist)
+                            if (!shouldExist)
                                 table.remove(elem);
                             isExist = true;
                             break;
@@ -216,7 +286,7 @@ public class ProgramStack {
                                 elem.category.equals("function")) {
                             if (elem.level == level)
                                 isLevelEquel = true;
-                            if(!shouldExist)
+                            if (!shouldExist)
                                 table.remove(elem);
                             isExist = true;
                             break;
@@ -236,7 +306,7 @@ public class ProgramStack {
                     for (TableElement elem : this.table) {
                         // если это просто переменная (не элемент массива или класса, то)
                         if (((TypeDeclaration) node).getIdent().getName().equals(elem.name)) {
-                            if(!shouldExist)
+                            if (!shouldExist)
                                 table.remove(elem);
                             isExist = true;
                             break;
@@ -320,7 +390,7 @@ public class ProgramStack {
         if (node.getClass().equals(VariableDeclaration.class)) {
             checkAstNodeExistence(((VariableDeclaration) node).getIdent(), VARIABLE, true, level);
             tableElement = getAndRemoveTableElement(VARIABLE, node);
-            tableElement.initial = ((VariableDeclaration)node).getInitExp();
+            tableElement.initial = ((VariableDeclaration) node).getInitExp();
 
         } else if (node.getClass().equals(RoutineDeclaration.class)) {
             checkAstNodeExistence(node, FUNCTION, true, level);
@@ -334,7 +404,7 @@ public class ProgramStack {
             checkAstNodeExistence(((Assignment) node).getModifiablePrimary().getIdent(), VARIABLE, true, level);
             tableElement = getAndRemoveTableElement(VARIABLE, ((Assignment) node).getModifiablePrimary().getIdent());
 
-            tableElement.initial = ((Assignment)node).getExpression();
+            tableElement.initial = ((Assignment) node).getExpression();
         } else throw new Exception("Error: illegal declaration in ProgramStack.addASTNode \n" +
                 ", expected 'some' globa, but  receive: " + node.getClass());
 

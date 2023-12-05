@@ -13,8 +13,7 @@ public class RoutineCall extends ASTNode {
     private ASTIdentifier ident;
     private List<Expression> functionParams = new ArrayList<>();
 
-    public RoutineCall(ASTIdentifier ident, List<Expression> functionParams){
-        this.functionParams = functionParams;
+    public RoutineCall(ASTIdentifier ident){
         this.ident = ident;
     }
     public RoutineCall(Token currentToken, List<Token> categorizedTokens) throws Exception {

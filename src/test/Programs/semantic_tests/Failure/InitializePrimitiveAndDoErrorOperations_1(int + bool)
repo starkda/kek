@@ -1,0 +1,9 @@
+routine entryPoint() is
+    var integerOne : integer is 1
+    var integerTwo : integer is 100
+    var realOne : real is 10.0
+    var booleanOne : boolean is true
+    integerOne := integerTwo + realOne
+    realOne := 2 * realOne
+    booleanOne := true and false + 7
+end
