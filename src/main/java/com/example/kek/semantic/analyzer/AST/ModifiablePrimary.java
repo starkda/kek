@@ -30,8 +30,8 @@ public class ModifiablePrimary extends ASTNode {
             if (
                     currentPosition == categorizedTokens.size() ||
                             !categorizedTokens.get(currentPosition).getClass().equals(com.example.kek.lexical.analyzer.token.Identifier.class) &&
-                            !categorizedTokens.get(currentPosition).getCode().equals("[") &&
-                            !categorizedTokens.get(currentPosition).getCode().equals(".") &&
+                                    !categorizedTokens.get(currentPosition).getCode().equals("[") &&
+                                    !categorizedTokens.get(currentPosition).getCode().equals(".") &&
                                     !categorizedTokens.get(currentPosition).getCode().equals("size")
 
             ) {
@@ -44,20 +44,21 @@ public class ModifiablePrimary extends ASTNode {
             } else if (categorizedTokens.get(currentPosition).getClass().equals(com.example.kek.lexical.analyzer.token.Identifier.class)) {
                 this.ident = new ASTIdentifier(categorizedTokens.get(currentPosition).getCode(), String.valueOf(categorizedTokens.get(currentPosition).getLine()));
                 currentPosition++;
+                if (categorizedTokens.get(currentPosition).getCode().equals("[") && (currentPosition != this.firstPosition)) {
+                    currentPosition++;
+                    this.expr = new Expression(categorizedTokens.get(currentPosition), categorizedTokens);
+                    currentPosition = this.expr.lastToken.getOrderInTokenList(this.categorizedTokens) + 1;
+                    if (categorizedTokens.get(currentPosition).getCode().equals("]")) {
+                        currentPosition++;
+                    } else
+                        throw new Exception("Error: illegal declaration in  ModifiablePrimary   " +
+                                categorizedTokens.get(currentPosition).showCodeLinePosition() + " , but expected ']'");
+                }
                 this.modifiablePrimary = new ModifiablePrimary(categorizedTokens.get(currentPosition), this.categorizedTokens, this.firstPosition);
                 currentPosition = this.modifiablePrimary.lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 this.lastToken = this.modifiablePrimary.lastToken;
-                if(this.modifiablePrimary.ident == null && this.modifiablePrimary.expr == null)
+                if (this.modifiablePrimary.ident == null)
                     this.modifiablePrimary = null;
-            } else if (categorizedTokens.get(currentPosition).getCode().equals("[") && (currentPosition != this.firstPosition)) {
-                currentPosition++;
-                this.expr = new Expression(categorizedTokens.get(currentPosition), categorizedTokens);
-                currentPosition = this.expr.lastToken.getOrderInTokenList(this.categorizedTokens) + 1;
-                if (categorizedTokens.get(currentPosition).getCode().equals("]")) {
-                    currentPosition++;
-                } else
-                    throw new Exception("Error: illegal declaration in  ModifiablePrimary   " +
-                            categorizedTokens.get(currentPosition).showCodeLinePosition() + " , but expected ']'");
             } else if (categorizedTokens.get(currentPosition).getCode().equals("."))
                 currentPosition++;
 
