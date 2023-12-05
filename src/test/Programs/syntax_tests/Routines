@@ -1,0 +1,11 @@
+routine recursiveFunction(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+end
+
+routine Main() is
+    var it is 100
+    var arithmeticSum is recursiveFunction(it)
+end

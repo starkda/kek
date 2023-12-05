@@ -1,0 +1,8 @@
+routine Main() is
+    var arr : array[100] integer
+    var mem : integer is 100
+    while mem > 0 loop
+        mem := mem - 1
+        arr := mem
+    end
+end
