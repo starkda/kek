@@ -1,22 +1,17 @@
-type testStruct is
-    record
-        var a : real
-        var vertical : integer
-        var next : testStruct
-        var horizontal : integer
-        var isNorm : boolean
-    end
-
-routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
-    var mem is 5
-    while mem loop
-        mem := mem - 1
-    end
-    return mem
+routine booleanFunction(var a : boolean) : boolean is
+    return true
 end
 
+routine realFunc(var a : real) : real is
+    var b : real
+    return 1.0
+end
 
-
-routine entryPoint() is
-    simpleFunc(5, 3.45, true)
+routine simpleFunc(var a : integer) : integer is
+    var kek is a + 3
+    return kek
+end
+routine entryPoint(var a : integer, var b : integer) is
+    var c : integer is 1
+    simpleFunc(c)
 end
