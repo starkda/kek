@@ -47,7 +47,7 @@ public class ModifiablePrimary extends ASTNode {
                 this.modifiablePrimary = new ModifiablePrimary(categorizedTokens.get(currentPosition), this.categorizedTokens, this.firstPosition);
                 currentPosition = this.modifiablePrimary.lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 this.lastToken = this.modifiablePrimary.lastToken;
-                if(this.modifiablePrimary.ident == null)
+                if(this.modifiablePrimary.ident == null && this.modifiablePrimary.expr == null)
                     this.modifiablePrimary = null;
             } else if (categorizedTokens.get(currentPosition).getCode().equals("[") && (currentPosition != this.firstPosition)) {
                 currentPosition++;
@@ -55,7 +55,6 @@ public class ModifiablePrimary extends ASTNode {
                 currentPosition = this.expr.lastToken.getOrderInTokenList(this.categorizedTokens) + 1;
                 if (categorizedTokens.get(currentPosition).getCode().equals("]")) {
                     currentPosition++;
-                    continue;
                 } else
                     throw new Exception("Error: illegal declaration in  ModifiablePrimary   " +
                             categorizedTokens.get(currentPosition).showCodeLinePosition() + " , but expected ']'");
