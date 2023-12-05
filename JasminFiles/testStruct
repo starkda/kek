@@ -1,0 +1,17 @@
+.class public testStruct
+.super java/lang/Object
+
+
+.field public a D
+
+
+.field public next LtestStruct;
+
+
+.field public vertical I
+
+
+.field public horizontal I
+
+
+.field public isNorm Z
