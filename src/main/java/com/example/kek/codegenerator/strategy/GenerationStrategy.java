@@ -24,7 +24,7 @@ public abstract class GenerationStrategy {
     public void after() throws IOException {
     }
 
-    abstract public List<ASTNode> getChildren(ASTNode parent);
+    abstract public List<ASTNode> getChildren(ASTNode parent) throws IOException;
 
 
     public void appendTabbed(String string) throws IOException {
@@ -45,6 +45,10 @@ public abstract class GenerationStrategy {
 
     public void storeBool(int var) throws IOException {
         appendTabbed(String.format("istore %d", var));
+    }
+
+    public void storeReference(int var) throws IOException {
+        appendTabbed(String.format("astore %d", var));
     }
 
     public void declareInt(int ordinal) throws IOException {
@@ -69,6 +73,48 @@ public abstract class GenerationStrategy {
 
     public void loadDouble(int ordinal) throws IOException {
         appendTabbed(String.format("dload %d", ordinal));
+    }
+
+    public void loadReference(int ordinal) throws IOException{
+        appendTabbed(String.format("aload %d", ordinal));
+    }
+
+    public void loadValue(Value value) throws IOException {
+        switch (value.getType()){
+            case ("I") -> {
+                if (value.getVarNumber() != null) {
+                    loadInt(value.getVarNumber());
+                } else {
+                    loadLiteral(value.getLiteralInt());
+                }
+            }
+            case ("D") -> {
+                if (value.getVarNumber() != null) {
+                    loadDouble(value.getVarNumber());
+                } else {
+                    loadLiteral(value.getLiteralDouble());
+                }
+            }
+            case ("Z") -> {
+                if (value.getVarNumber() != null) {
+                    loadBool(value.getVarNumber());
+                } else {
+                    loadLiteral(value.getLiteralBoolean());
+                }
+            }
+            default -> {
+                 loadReference(value.getVarNumber());
+            }
+        }
+    }
+
+    public void storeValue(Value value) throws IOException {
+        switch (value.getType()){
+            case ("I") -> storeInt(value.getVarNumber());
+            case ("D") -> storeDouble(value.getVarNumber());
+            case ("Z") ->  storeBool(value.getVarNumber());
+            default -> storeReference(value.getVarNumber());
+        };
     }
 
     public void loadTrue() throws IOException {
@@ -111,6 +157,14 @@ public abstract class GenerationStrategy {
             case ("boolean") -> "Z";
             default -> throw new RuntimeException();
         };
+    }
+
+    public String mapTOReferenceJasminType(String rawType) {
+        return String.format("L%s;", rawType);
+    }
+
+    public String mapToArrayRefJasminType(String rawType) {
+        return String.format("[%s", rawType);
     }
 
     public Value castBoolean(Value value) throws IOException {

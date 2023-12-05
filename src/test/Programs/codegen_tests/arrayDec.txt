@@ -1,0 +1,11 @@
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+var arNew : array[5] integer
+var kek : integer is arNew[0]
+return 1
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(1, 2.2, true)
+end

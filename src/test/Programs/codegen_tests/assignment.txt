@@ -1,0 +1,20 @@
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean
+    end
+
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+var kek : integer
+kek := 5 * 30
+return 5
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(1, 2.2, true)
+end

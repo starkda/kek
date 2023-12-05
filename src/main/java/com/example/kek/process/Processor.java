@@ -20,7 +20,7 @@ public class Processor {
 
     public void process() throws Exception {
         List<Token> categorizeTokens = lexicalAnalyzer.genTokensFromLexicalAnalyzer(fileName);
-      //  categorizeTokens.forEach(Token::print); // print all tokens after lexical analyze
+        categorizeTokens.forEach(Token::print); // print all tokens after lexical analyze
         AbstractSyntaxTree ast = new AbstractSyntaxTree(categorizeTokens);
 
         SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(ast, entryPoint);

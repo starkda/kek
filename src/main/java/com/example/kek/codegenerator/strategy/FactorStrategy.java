@@ -1,5 +1,6 @@
 package com.example.kek.codegenerator.strategy;
 
+import com.example.kek.codegenerator.Layerable;
 import com.example.kek.codegenerator.Value;
 import com.example.kek.lexical.analyzer.token.Token;
 import com.example.kek.semantic.analyzer.AST.ASTNode;
@@ -10,7 +11,7 @@ import com.example.kek.semantic.analyzer.AST.Summand;
 import java.io.IOException;
 import java.util.*;
 
-public class FactorStrategy extends GenerationStrategy {
+public class FactorStrategy extends GenerationStrategy implements Layerable {
 
     public FactorStrategy(ASTNode nodeContext, Map<String, Value> variableContext, TreeSet<Integer> freeVariables) {
         this.nodeContext = nodeContext;
@@ -35,6 +36,7 @@ public class FactorStrategy extends GenerationStrategy {
             for (Summand summand : factor.getSummands()) {
                 SummandStrategy summandStrategy = new SummandStrategy(summand, variableContext, freeVariables);
                 Value curSummand = summandStrategy.handleSummand();
+                throwIfReference(curSummand);
                 if (Objects.equals(curSummand.getType(), "D")) {
                     shouldExtend = true;
                 }

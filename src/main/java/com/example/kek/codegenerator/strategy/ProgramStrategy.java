@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class ProgramStrategy extends GenerationStrategy {
 
+
     @Override
     public void before() throws IOException {
         append(".class public Kek");
