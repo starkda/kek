@@ -1,6 +1,7 @@
 package com.example.kek.codegenerator.strategy;
 
 import com.example.kek.codegenerator.CodeGenerator;
+import com.example.kek.codegenerator.Layerable;
 import com.example.kek.codegenerator.Value;
 import com.example.kek.lexical.analyzer.token.Token;
 import com.example.kek.semantic.analyzer.AST.ASTNode;
@@ -13,7 +14,7 @@ import javax.management.ConstructorParameters;
 import java.io.IOException;
 import java.util.*;
 
-public class RelationStrategy extends GenerationStrategy{
+public class RelationStrategy extends GenerationStrategy implements Layerable {
 
     public RelationStrategy(ASTNode nodeContext, Map<String, Value> variableContext, TreeSet<Integer> freeVariables){
         this.nodeContext = nodeContext;
@@ -38,6 +39,7 @@ public class RelationStrategy extends GenerationStrategy{
             for (Simple simple : relation.getSimples()) {
                 SimpleStrategy simpleStrategy = new SimpleStrategy(simple, variableContext, freeVariables);
                 Value val = simpleStrategy.handleSimple();
+                throwIfReference(val);
                 doubleValues.add(castDouble(val));
             }
 

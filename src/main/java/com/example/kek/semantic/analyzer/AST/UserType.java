@@ -1,11 +1,15 @@
 package com.example.kek.semantic.analyzer.AST;
 
 import com.example.kek.lexical.analyzer.token.Token;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
+@Setter
 public class UserType extends Type {
     private List<VariableDeclaration> variableDeclarations = new ArrayList<>();
     private List<Token> tokens;

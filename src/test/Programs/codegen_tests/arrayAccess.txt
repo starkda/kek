@@ -1,0 +1,14 @@
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+var arraySize : integer is 5
+var ar : array[6] integer
+    for i in 0 .. arraySize loop
+        ar[i] := i
+    end
+    return ar[2]
+end
+
+
+
+routine entryPoint() is
+    var kek: integer is 6
+end

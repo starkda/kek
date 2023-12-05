@@ -1,0 +1,12 @@
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+    for i in 3 .. 5 loop
+         a := a + i
+        end
+    return a
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(5, 3.45, true)
+end

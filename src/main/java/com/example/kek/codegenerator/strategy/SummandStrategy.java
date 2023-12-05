@@ -29,7 +29,7 @@ public class SummandStrategy extends GenerationStrategy {
             case("real") -> new Value("D", null, summand.getRealLiteral(), null, null);
             case ("integer") -> new Value("I", null, null, null, summand.getIntLiteral());
             case("routineCall") -> (new RoutineCallStrategy(summand.getRoutineCall(), variableContext, freeVariables)).handleRoutineCall();
-            case("modifiablePrimary") -> variableContext.get(summand.getModifiablePrimary().getIdent().getName());
+            case("modifiablePrimary") -> (new ModifiablePrimaryStrategy(summand.getModifiablePrimary(), variableContext, freeVariables)).handleModifiablePrimary();
             default -> throw new RuntimeException("Unexpected value: " + summand.getType());
         };
     }

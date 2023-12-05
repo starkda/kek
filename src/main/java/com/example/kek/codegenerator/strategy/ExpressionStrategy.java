@@ -1,5 +1,6 @@
 package com.example.kek.codegenerator.strategy;
 
+import com.example.kek.codegenerator.Layerable;
 import com.example.kek.codegenerator.Value;
 import com.example.kek.lexical.analyzer.token.Token;
 import com.example.kek.semantic.analyzer.AST.ASTNode;
@@ -9,7 +10,7 @@ import com.example.kek.semantic.analyzer.AST.Relation;
 import java.io.IOException;
 import java.util.*;
 
-public class ExpressionStrategy extends GenerationStrategy {
+public class ExpressionStrategy extends GenerationStrategy implements Layerable {
 
 
     public ExpressionStrategy(ASTNode nodeContext, Map<String, Value> variableContext, TreeSet<Integer> freeVariables){
@@ -34,6 +35,7 @@ public class ExpressionStrategy extends GenerationStrategy {
             for (Relation relation : expression.getRelations()) {
                 RelationStrategy relationStrategy = new RelationStrategy(relation, variableContext, freeVariables);
                 Value val = relationStrategy.handleRelation();
+                throwIfReference(val);
                 intValues.add(castInteger(val));
             }
 

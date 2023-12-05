@@ -1,0 +1,12 @@
+
+routine simpleFunc(var a : integer) : integer is
+    var mem : double is 3.45
+    var sec : integer is mem
+    return sec + 6
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(5)
+end

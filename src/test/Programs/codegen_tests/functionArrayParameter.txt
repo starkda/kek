@@ -1,0 +1,18 @@
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean
+    end
+
+routine simpleFunc(var a : integer, var b : real, var d : array[] integer, var e : testStruct) : integer is
+return 1
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(1, 2.2, true)
+end

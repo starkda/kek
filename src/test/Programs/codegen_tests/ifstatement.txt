@@ -1,0 +1,27 @@
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean
+    end
+
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+var kek : integer
+kek := 5
+return 5
+end
+
+routine recursiveFunction(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+    return 5
+end
+
+
+routine entryPoint() is
+    simpleFunc(1, 2.2, true)
+end

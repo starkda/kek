@@ -1,9 +1,0 @@
-
-routine simpleFunc(var a : integer) : integer is
-    var kek is a + 3
-    return kek
-end
-routine entryPoint(var a : integer, var b : integer) is
-    var c : integer is simpleFunc(a)
-    simpleFunc(c)
-end

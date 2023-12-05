@@ -1,0 +1,23 @@
+type testStruct is
+    record
+        var a : real
+        var vertical : integer
+        var next : testStruct
+        var horizontal : integer
+        var isNorm : boolean
+    end
+
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+    var mem : integer is 5
+    while mem loop
+    mem := mem - 1
+    b := b + 2.5
+    end
+    return b
+end
+
+
+
+routine entryPoint() is
+    simpleFunc(5, 3.45, true)
+end

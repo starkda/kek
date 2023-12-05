@@ -1,5 +1,6 @@
 package com.example.kek.codegenerator.strategy;
 
+import com.example.kek.codegenerator.Layerable;
 import com.example.kek.codegenerator.Value;
 import com.example.kek.lexical.analyzer.token.Token;
 import com.example.kek.semantic.analyzer.AST.ASTNode;
@@ -9,7 +10,7 @@ import com.example.kek.semantic.analyzer.AST.Simple;
 import java.io.IOException;
 import java.util.*;
 
-public class SimpleStrategy extends GenerationStrategy {
+public class SimpleStrategy extends GenerationStrategy implements Layerable {
     public SimpleStrategy(ASTNode nodeContext, Map<String, Value> variableContext, TreeSet<Integer> freeVariables) {
         this.nodeContext = nodeContext;
         this.variableContext = variableContext;
@@ -33,6 +34,7 @@ public class SimpleStrategy extends GenerationStrategy {
             for (Factor factor : simple.getFactors()) {
                 FactorStrategy factorStrategy = new FactorStrategy(factor, variableContext, freeVariables);
                 Value curFactor = factorStrategy.handleFactor();
+                throwIfReference(curFactor);
                 if (Objects.equals(curFactor.getType(), "D")) {
                     shouldExtend = true;
                 }
@@ -118,12 +120,10 @@ public class SimpleStrategy extends GenerationStrategy {
     public String getSignOperationsDouble(Token token) throws IOException {
         return switch (token.getCode()){
             case ("+") -> {
-                appendTabbed("fadd");
-                yield "fadd";
+                yield "dadd";
             }
             case("-") -> {
-                appendTabbed("fdif");
-                yield "fdif";
+                yield "ddif";
             }
             default -> throw new IllegalStateException("Unexpected value: " + token.getCode());
         };
