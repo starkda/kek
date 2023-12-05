@@ -1,0 +1,7 @@
+routine Main() is
+    var arr : array[100] integer
+    var i : integer is 0
+    for i in 1 .. 100 loop
+        arr := arr + i
+    end
+end

@@ -1,0 +1,80 @@
+type testStruct is
+    record
+        var a : real
+        var next : testStruct
+        var vertical : integer
+        var horizontal : integer
+        var isNorm : boolean is true
+    end
+
+routine recursiveFunction(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+end
+
+routine recursiveFunction2(var a : integer) : integer is
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+end
+
+routine recursiveFunction3(var a : integer) : integer is
+    var ara : integer is 1 + 2 + 3
+    var arab : integer is 1 + 2 + 3 + 4
+    if a > 0
+        then return a + recursiveFunction(a - 1)
+        else return a
+    end
+    var i : integer is 0
+    for i in 1 .. arraySize loop
+        ara := ara + i
+    end
+end
+
+routine arrayFunction(var ar : array[] integer) : array[] integer is
+    if ar.size > 2
+        then
+            var arNew : array[ar.size - 1] integer
+            return arrayFunction(arNew)
+        else return ar
+    end
+end
+
+routine fillingArray(var ar : array[] integer) : array[] integer is
+    var arraySize is ar.size
+    var i : integer
+    for i in 1 .. arraySize loop
+        ar[i] := i
+    end
+    return ar
+end
+
+routine createLinkedList() : testStruct is
+    var zero : testStruct
+    var first : testStruct is testStruct(
+                            1.1,
+                            zero,
+                            12,
+                            15
+                            )
+    var second : testStruct is testStruct(
+                             1.1,
+                             first,
+                             12,
+                             15
+                             )
+    return second
+end
+
+routine Main() is
+    var arr : array[100] integer
+    arr := fillingArray(arr)
+    arr := arrayFunction(arr)
+
+    var it is 100
+    var arithmeticSum is recursiveFunction(it)
+    var linkedList : testStruct is createLinkedList
+end

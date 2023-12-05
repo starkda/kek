@@ -22,12 +22,12 @@ routine Main() is
     var checkReal : real  is 1.1
     var checkBool : boolean is true
 
-    var arrInt : arrays[100] integer
+    var arrInt : array[100] integer
     var arrReal : array[100] real
-    var arrBool : array[100] boolean
+    var arrBool : array[real] boolean
 
     var zero : testStruct
-    var first : integer is testStruct(
+    var first : testStruct is testStruct(
                             1.1,
                             zero,
                             12,
