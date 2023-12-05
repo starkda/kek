@@ -1,17 +1,14 @@
-routine booleanFunction(var a : boolean) : boolean is
-    return true
+routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+    var arraySize : integer is 5
+    var ar : array[6] integer
+        for i in 0 .. arraySize loop
+            ar[i] := i
+        end
+    return ar[2]
 end
 
-routine realFunc(var a : real) : real is
-    var b : real
-    return 1.0
-end
 
-routine simpleFunc(var a : integer) : integer is
-    var kek is a + 3
-    return kek
-end
+
 routine entryPoint() is
-    var c : integer is 1
-    simpleFunc(c)
+    var kek: integer is 6
 end
