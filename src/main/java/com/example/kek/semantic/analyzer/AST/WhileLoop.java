@@ -24,7 +24,7 @@ public class WhileLoop extends ASTNode{
             if(Objects.equals(categorizedTokens.get(currentPosition).getCode(), "loop")){
                 currentPosition++;
                 this.body = new Body(categorizedTokens.get(currentPosition), categorizedTokens);
-                currentPosition = body.lastToken.getOrderInTokenList(categorizedTokens);
+                currentPosition = body.lastToken.getOrderInTokenList(categorizedTokens) + 1;
                 if(Objects.equals(categorizedTokens.get(currentPosition).getCode(), "end")){
                     lastToken = categorizedTokens.get(currentPosition);
                 }
