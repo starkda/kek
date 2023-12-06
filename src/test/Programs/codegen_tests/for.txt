@@ -1,4 +1,5 @@
 routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
+    var i : integer
     for i in 3 .. 5 loop
          a := a + i
         end

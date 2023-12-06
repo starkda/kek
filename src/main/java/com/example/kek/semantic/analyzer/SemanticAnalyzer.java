@@ -79,12 +79,12 @@ public class SemanticAnalyzer {
         if (((VariableDeclaration) astNode).getInitExp() != null &&
                 ((VariableDeclaration) astNode).getType() != null && ((VariableDeclaration) astNode).getType().getType() != null) {
             // если тип у initExp - известный +
-            if (((VariableDeclaration) astNode).getInitExp().isTypeKnown() &&
-                    !((PrimitiveType) ((VariableDeclaration) astNode).getType().getType()).getTypePrim().
-                            equals(((VariableDeclaration) astNode).getInitExp().getSimple().getType()))
-                throw new Exception("Error: illegal type in program (SemanticAnalyzer.checkVariableDeclaration) \n" +
-                        ", expected " + ((VariableDeclaration) astNode).getType().getType().getClass() + "  , but  receive: "
-                        + ((VariableDeclaration) astNode).getInitExp().getType().getClass());
+//            if (((VariableDeclaration) astNode).getInitExp().isSimple() &&
+//                    !((PrimitiveType) ((VariableDeclaration) astNode).getType().getType()).getTypePrim().
+//                            equals(((VariableDeclaration) astNode).getInitExp().getSimple().getType()))
+//                throw new Exception("Error: illegal type in program (SemanticAnalyzer.checkVariableDeclaration) \n" +
+//                        ", expected " + ((VariableDeclaration) astNode).getType().getType().getClass() + "  , but  receive: "
+//                        + ((VariableDeclaration) astNode).getInitExp().getType().getClass());
         }
 
         // добавить в програм-стек, если не глобал.
@@ -762,8 +762,8 @@ public class SemanticAnalyzer {
 
     private void checkTypeDeclaration(ProgramStack upperProgramStack, TypeDeclaration typeDeclaration, Boolean isGlobalScope, int level, boolean itIsNotLoop) throws Exception {
 //        upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "type", true, level);
-        if (typeDeclaration.getType() != null && typeDeclaration.getType().getType().getClass().equals(UserType.class))
-            upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true, level);
+//        if (typeDeclaration.getType() != null && typeDeclaration.getType().getType().getClass().equals(UserType.class))
+//            upperProgramStack.checkAstNodeExistence(typeDeclaration.getIdent(), "variable", true, level);
 
     }
 

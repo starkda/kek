@@ -8,9 +8,9 @@ type testStruct is
     end
 
 routine simpleFunc(var a : integer, var b : real, var c : boolean) : integer is
-var kek : integer
-kek := 5 * 30
-return 5
+    var kek : integer
+    kek := 5 * 30
+    return 5
 end
 
 

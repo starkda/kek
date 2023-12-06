@@ -11,31 +11,34 @@
 	.var 4 is variable_4 I
 	ldc 5
 	istore 4
-	.var 5 is variable_5 [I
-	ldc 6
-	newarray int
-	astore 5
-	.var 6 is variable_6 I
-	ldc 0
-	istore 6
-	loopBody_0:
-	aload 5
-	iload 6
-	iload 6
-	iastore
-	iinc 6 1
-	checkCondition_0:
-	iload 6
-	iload 4
-	if_icmpgt endFor_0
-	goto loopBody_0
-	endFor_0:
-	aload 5
-	ldc 2
-	iaload
-	.var 7 is variable_7 I
-	istore 7
-	iload 7
+	whileLoop_0:
+	ldc 5
+	ifle endWhile_0
+	.var 5 is variable_5 I
+	ldc 5
+	istore 5
+	iload 5
+	ldc 1
+	isub
+	istore 5
+	iload 5
+	istore 4
+	.var 6 is variable_6 D
+	dload 1
+	dstore 6
+	dload 6
+	ldc2_w 2.5000
+	dadd
+	dstore 6
+	dload 6
+	dstore 1
+	goto whileLoop_0
+	endWhile_0:
+	.var 8 is variable_8 I
+	dload 1
+	d2i
+	istore 8
+	iload 8
 	ireturn
 .end method
 
