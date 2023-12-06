@@ -1,14 +1,14 @@
-.class public testStruct
+.class public JasminFiles/testStruct
 .super java/lang/Object
 
 
 .field public a D
 
 
-.field public next LtestStruct;
-
-
 .field public vertical I
+
+
+.field public next LtestStruct;
 
 
 .field public horizontal I

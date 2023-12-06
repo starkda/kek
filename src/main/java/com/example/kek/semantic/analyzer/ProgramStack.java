@@ -59,6 +59,7 @@ public class ProgramStack {
                                 Objects.equals(elem.category, VARIABLE))
                             return;
                     }
+                else return;
                 throw new Exception("Error: illegal declaration in ProgramStack.checkTableElement(VARIABLE) \n" +
                         ", expected existing in table, but  receive : 'NOT' ");
             }
@@ -91,6 +92,7 @@ public class ProgramStack {
                                 Objects.equals(elem.category, VARIABLE))
                             return elem.initial;
                     }
+                else return null;
                 throw new Exception("Error: illegal declaration in ProgramStack.getTableElementInitial(VARIABLE) \n" +
                         ", expected VARIABLE, but  receive : STRUCTURE ");
             }
