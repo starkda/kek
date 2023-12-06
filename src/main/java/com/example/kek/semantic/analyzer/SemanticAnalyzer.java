@@ -609,14 +609,14 @@ public class SemanticAnalyzer {
     private void checkAndSimplifyRoutineDeclaration(ProgramStack upperProgramStack, ASTNode astNode) throws Exception {
         for (VariableDeclaration params : ((RoutineDeclaration) astNode).getVariablesDeclaration())
             checkAndSimplifyVariableDeclaration(upperProgramStack, params, 1, true);
-        if(((RoutineDeclaration) astNode).getType() != null)
+        if (((RoutineDeclaration) astNode).getType() != null)
             checkAndSimplifyType(upperProgramStack.copy(), ((RoutineDeclaration) astNode).getType());
         checkAndSimplifyBody(upperProgramStack, ((RoutineDeclaration) astNode).getBody(), 1, true);
     }
 
     private void checkAndSimplifyType(ProgramStack upperProgramStack, Type type) throws Exception {
-        if(type.getType().getClass().equals(UserType.class)){
-            if(upperProgramStack.getTableElement("type", type.getType()).getType().getType().getClass().equals(PrimitiveType.class)){
+        if (type.getType().getClass().equals(UserType.class)) {
+            if (upperProgramStack.getTableElement("type", type.getType()).getType().getType().getClass().equals(PrimitiveType.class)) {
                 type.getType().setType(upperProgramStack.getTableElement("type", type.getType()).getType().getType());
             }
         }
@@ -710,15 +710,14 @@ public class SemanticAnalyzer {
                 }
                 case "boolean" -> {
                     if (exprType.getType().equals("integer"))
-                        if(exprType.getIntLiteral() == 1) {
+                        if (exprType.getIntLiteral() == 1) {
                             exprType.setBoolLiteral(true);
                             exprType.setType("boolean");
-                        }
-                        else if(exprType.getIntLiteral() == 0) {
+                        } else if (exprType.getIntLiteral() == 0) {
                             exprType.setBoolLiteral(false);
                             exprType.setType("boolean");
-                        }
-                        else throw new Exception("Exception in SemanticAnalyzer.checkAndSimplifyAssignment(): expected: integer -> 0 or 1" +
+                        } else
+                            throw new Exception("Exception in SemanticAnalyzer.checkAndSimplifyAssignment(): expected: integer -> 0 or 1" +
                                     ", but found integer with boolean, where integer -> some strange");
 
                     if (exprType.getType().equals("boolean"))
