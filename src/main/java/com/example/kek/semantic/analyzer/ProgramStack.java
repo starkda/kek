@@ -319,6 +319,19 @@ public class ProgramStack {
                     } else
                         throw new Exception("Error: illegal declaration in ProgramStack.checkAstNodeExistence(TYPE) \n" +
                                 ", expected: " + shouldExist + ", but  receive : " + isExist + " ");
+                }else if (((TypeDeclaration) (node)).getType().getType().getClass().equals(PrimitiveType.class)){
+                    for (TableElement elem : this.table) {
+                        // если это просто переменная (не элемент массива или класса, то)
+                        if (((TypeDeclaration) node).getIdent().getName().equals(elem.name)) {
+                            if (!shouldExist)
+                                table.remove(elem);
+                            isExist = true;
+                            break;
+                        }
+                    }
+                    if (shouldExist == isExist) {
+                        return;
+                    }
                 }
                 throw new Exception("Error: illegal declaration in ProgramStack.checkAstNodeExistence(TYPE) \n" +
                         ", expected User TYPE, but  receive: " + ((TypeDeclaration) (node)).getType().getType().getClass());
@@ -364,7 +377,7 @@ public class ProgramStack {
                 tableElement.type = ((TypeDeclaration) node).getType();
             if (((TypeDeclaration) node).getIdent().getStartingLine() != null)
                 tableElement.line = ((TypeDeclaration) node).getIdent().getStartingLine();
-            if (((TypeDeclaration) node).getType() != null && ((TypeDeclaration) node).getType().getType() != null && ((UserType) (((TypeDeclaration) node).getType().getType())).getVariableDeclarations() != null)
+            if (((TypeDeclaration) node).getType() != null && ((TypeDeclaration) node).getType().getType() != null && ((TypeDeclaration) node).getType().getType().getClass().equals(UserType.class) && ((UserType) (((TypeDeclaration) node).getType().getType())).getVariableDeclarations() != null)
                 for (VariableDeclaration argument : ((UserType) (((TypeDeclaration) node).getType().getType())).getVariableDeclarations())
                     tableElement.arguments.add(new Argument(argument.getType(), argument.getIdent().getName()));
         } else if (node.getClass().equals(Assignment.class)) {

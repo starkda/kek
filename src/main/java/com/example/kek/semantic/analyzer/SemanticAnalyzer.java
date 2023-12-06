@@ -663,9 +663,15 @@ public class SemanticAnalyzer {
         if (assignment.getExpression().isSimple()) {
             Type variableType = upperProgramStack.getTableElement("variable", assignment.getModifiablePrimary().getIdent()).getType();
             Summand exprType = assignment.getExpression().getSimple();
-            if (variableType.getType().getClass().equals(UserType.class) || variableType.getType().getClass().equals(ArrayType.class))
+            if (variableType.getType().getClass().equals(ArrayType.class))
                 throw new Exception("Exception in SemanticAnalyzer.checkAndSimplifyAssignment(): expected: PrimitiveType" +
                         ", but found UserType or ArrayType ");
+            if(variableType.getType().getClass().equals(UserType.class)){
+                if(upperProgramStack.getTableElement("type", variableType).getType().getType().getClass().equals(PrimitiveType.class))
+                    variableType = upperProgramStack.getTableElement("type", variableType).getType();
+                else                 throw new Exception("Exception in SemanticAnalyzer.checkAndSimplifyAssignment(): expected: PrimitiveType" +
+                        ", but found UserType or ArrayType ");
+            }
             switch (((PrimitiveType) variableType.getType()).getTypePrim()) {
                 case "real" -> {
                     if (exprType.getType().equals("boolean"))

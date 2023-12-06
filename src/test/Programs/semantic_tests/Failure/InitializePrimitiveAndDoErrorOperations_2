@@ -1,5 +1,7 @@
+type integers is integer
+
 routine entryPoint() is
-    var integerOne : integer is 1
+    var integerOne : integers is 1
     var integerTwo : integer is 100
     var realOne : real is 10.0
     var booleanIne : boolean is true
